@@ -1,0 +1,58 @@
+.all-students-page {
+  display: flex;
+  padding: 20px;
+  gap: 30px;
+}
+
+.students-list {
+  flex: 1;
+  border-right: 1px solid #ccc;
+  padding-right: 20px;
+}
+
+.students-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.students-list li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.students-list li img {
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.students-list li span {
+  font-size: 1.1rem;
+}
+
+.students-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.student-details {
+  flex: 2;
+}
+
+.details-box {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #333;
+}

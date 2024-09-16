@@ -1,0 +1,68 @@
+.edit-lesson-page {
+  padding: 20px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: var(--white);
+  padding: 10px;
+}
+
+.toolbar button,
+.toolbar select {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.ql-container {
+  flex: 1; /* Take up remaining space */
+  overflow: hidden; /* Ensure container does not overflow */
+  height: 370px;
+  background-color: var(--white);
+}
+
+.ql-editor {
+  height: calc(
+    100vh - 150px
+  ); /* Adjust to fit screen height minus toolbar height */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding: 10px; /* Add padding inside the editor */
+}
+
+.edit-lesson-page .header {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-lesson-page .header input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-lesson-page .header .topic {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.edit-lesson-page .header .date-class-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-lesson-page .header .date-class-container input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.edit-lesson-page .header .date-class-container input:last-child {
+  margin-right: 0;
+}
