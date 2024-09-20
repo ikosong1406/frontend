@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Chart from "react-apexcharts";
-import Calendar from "react-calendar"; // Import react-calendar
-import "react-calendar/dist/Calendar.css"; // Import the calendar CSS
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import "react-calendar/dist/Calendar.css";
 import "../styles/Overview.css";
 import { IoPersonAdd } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
+import { FaEllipsisV } from "react-icons/fa";
 import students from "../../images/students.png";
 import teachers from "../../images/teachers.png";
 import income from "../../images/income.png";
@@ -20,9 +22,22 @@ const overviewData = {
   newAdmissions: 20,
   events: 5,
   schoolYear: "2023/2024",
-  upcomingEvents: [
-    { date: new Date("2024-09-21"), event: "Science Fair" },
-    { date: new Date("2024-10-01"), event: "Parent-Teacher Meeting" },
+};
+
+const dummyEvents = {
+  "2024-09-13": [
+    {
+      title: "Sports Day",
+      description: "Annual sports competition",
+      color: "red",
+    },
+  ],
+  "2024-10-01": [
+    {
+      title: "Parent-Teacher Meeting",
+      description: "PTA meeting at 10 AM",
+      color: "blue",
+    },
   ],
 };
 
@@ -31,6 +46,15 @@ const Overview = () => {
   const [greeting, setGreeting] = useState("");
   const [value, setValue] = useState(new Date()); // Calendar selected date
   const [hoveredDate, setHoveredDate] = useState(null);
+
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [events, setEvents] = useState(dummyEvents);
+  const [eventDetails, setEventDetails] = useState({
+    title: "",
+    description: "",
+    date: "",
+    color: "",
+  });
 
   useEffect(() => {
     const currentHour = new Date().getHours();
@@ -88,20 +112,22 @@ const Overview = () => {
     navigate("/admin/add-event");
   };
 
-  // Check if a date has an event
-  const isEventDate = (date) => {
-    return overviewData.upcomingEvents.some(
-      (event) => event.date.toDateString() === date.toDateString()
+  const handleDateClick = (info) => {
+    const dateStr = info.dateStr;
+    const eventsForDate = events[dateStr] || [];
+    setSelectedDate(dateStr);
+    setEventDetails(
+      eventsForDate[0] || { title: "", description: "", color: "" }
     );
   };
 
-  // Get event for the selected date
-  const getEventForDate = (date) => {
-    const event = overviewData.upcomingEvents.find(
-      (event) => event.date.toDateString() === date.toDateString()
-    );
-    return event ? event.event : null;
-  };
+  const allEvents = Object.keys(events).flatMap((date) =>
+    events[date].map((event) => ({
+      date,
+      title: event.title,
+      color: event.color,
+    }))
+  );
 
   return (
     <div className="overview-page">
@@ -156,39 +182,48 @@ const Overview = () => {
 
       {/* Section 3: Financial Graph and Events */}
       <div className="section financial-section">
-        <div className="calendar-section">
-          <h3>School Calendar</h3>
-          <Calendar
-            onChange={setValue}
-            value={value}
-            tileClassName={({ date }) =>
-              isEventDate(date) ? "event-day" : null
-            }
-            onMouseOver={({ date }) =>
-              setHoveredDate(isEventDate(date) ? date : null)
-            }
+        <div className="calendar-sections">
+          <FullCalendar
+            className="fullcalendar"
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
+            events={allEvents}
+            dateClick={handleDateClick}
+            height={"90vh"}
+            width={"100vh"}
           />
-
-          {hoveredDate && (
-            <div className="event-popup">
-              <p>Event: {getEventForDate(hoveredDate)}</p>
-            </div>
-          )}
         </div>
 
         <div className="events-section">
           <h3>Upcoming Events</h3>
           <div className="ul">
-            {overviewData.upcomingEvents.map((event, index) => (
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                <p key={index} className="date">
-                  {event.date.toLocaleDateString("en-US", {
-                    day: "numeric",
-                    month: "short",
-                  })}
-                </p>
-
-                <h4 style={{ alignSelf: "center" }}>{event.event}</h4>
+            {allEvents.map((event, index) => (
+              <div key={index} className="event-item">
+                <div>
+                  <h2 className="event-date" style={{ color: event.color }}>
+                    {event.date}
+                  </h2>
+                  <h3 className="event-title" style={{ color: "black" }}>
+                    {event.title}
+                  </h3>
+                  <div
+                    className="event-line"
+                    style={{
+                      backgroundColor: event.color,
+                      width: "70%",
+                      height: 4,
+                      marginTop: -10,
+                      marginBottom: 10,
+                    }}
+                  ></div>
+                </div>
+                <div className="event-menu">
+                  <FaEllipsisV />
+                  <div className="event-actions">
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -201,7 +236,7 @@ const Overview = () => {
 
       {/* Section 4: School Calendar */}
       <div className="financial-chart">
-        <h3>School Financials</h3>
+        <h3>School Finance</h3>
         <Chart
           options={financialChartOptions}
           series={financialChartOptions.series}
