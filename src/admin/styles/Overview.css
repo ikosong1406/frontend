@@ -3,37 +3,185 @@
   text-align: center;
 }
 
-.title {
-  font-size: 2.5rem;
-  color: #2b2b2b;
-  margin-bottom: 20px;
-  font-weight: bold;
+/* Greeting Section */
+.greeting-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.greeting-section h3 {
+  font-weight: 600;
+  color: var(--background);
+}
+
+.btn-add-student {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-items: center;
+}
+
+/* Analytics Section */
 .overview-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .card {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.card h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 10px;
 }
 
-h3 {
-  font-size: 1.25rem;
-  color: #555;
+.card p {
+  font-weight: 700;
+  color: #27ae60;
 }
 
-p {
-  font-size: 1.5rem;
-  color: #333;
+/* Financial Section */
+.financial-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.financial-chart {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 96%;
+  margin-top: 20px;
+}
+
+.financial-chart h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.events-section {
+  background-color: #fff;
+  width: 30%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.events-section .ul {
+  margin-bottom: 30px;
+}
+
+.events-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--black);
+}
+
+.date {
+  border-bottom: 2px solid #27ae60;
+  background-color: var(--ash);
+  padding: 10px;
+  align-self: center;
+}
+
+.events-section li {
+  font-size: 16px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.btn-add-event {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-items: center;
+}
+
+/* Calendar Section */
+.calendar-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 60%;
+}
+
+.calendar-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+/* React Calendar Styling */
+.react-calendar {
+  border: none;
+  width: 100%;
+}
+
+.react-calendar__tile {
+  text-align: center;
+  padding: 15px 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.react-calendar__tile--now {
+  background-color: #3498db;
+  color: white;
+}
+
+.react-calendar__tile--active {
+  background-color: #27ae60;
+  color: white;
+  border-radius: 8px;
+}
+
+.react-calendar__tile:hover {
+  background-color: #ecf0f1;
+}
+
+.event-day {
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+/* Event Popup */
+.event-popup {
+  position: absolute;
+  background-color: pink;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  top: -50px;
+  left: 50px;
+  font-size: 14px;
+  color: #34495e;
 }

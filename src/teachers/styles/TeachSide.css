@@ -21,37 +21,50 @@
 .sideDiv3 {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-top: 100px;
 }
 
 .sideDiv3 a {
-  font-size: 24px;
-  color: var(--pink);
+  display: flex;
   text-decoration: none;
-  margin: 15px 0;
-  transition: color 0.3s;
+  margin: 5px 0;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 5px 15px 5px 15px;
+  border-radius: 0 10px 10px 0; /* Add rounded corners */
 }
 
 .sideDiv3 .icon {
-  font-size: 24px;
-  color: inherit;
-  transition: color 0.3s;
+  font-size: 22px;
+  color: var(--white);
+  margin-right: 10px;
+  align-self: center;
+}
+
+.sideDiv3 .label {
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  align-self: center;
+}
+
+.sideDiv3 a:hover {
+  background-color: var(--ash);
   color: var(--primary);
 }
 
-.sideDiv3 a:hover .icon {
-  background-color: var(--ash);
-  color: var(--dark);
-  padding: 10px;
-  border-radius: 10px;
+.sideDiv3 a:hover .icon,
+.sideDiv3 a:hover .label {
+  color: var(--primary);
 }
 
-.sideDiv3 a.active .icon {
+.sideDiv3 a.active {
   background-color: var(--primary);
   color: var(--white);
-  padding: 10px;
-  border-radius: 10px;
+}
+
+.sideDiv3 a.active .icon,
+.sideDiv3 a.active .label {
+  color: var(--white);
 }
 
 .sideDiv4 {

@@ -5,14 +5,13 @@
 }
 
 .sidebar-container {
-  width: 10%;
+  width: 13%;
 }
 
 .page-container {
-  width: 87%;
+  width: 84%;
   background-color: var(--ash);
-  height: 577px;
-  /* height: 100%; */
+  height: 100%;
   margin-top: 20px;
   margin-bottom: 25px;
   border-radius: 20px;
