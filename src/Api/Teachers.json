@@ -1,0 +1,194 @@
+[
+  {
+    "profilePhoto": "https://dummyimage.com/100x100/000/fff&text=Staff+1",
+    "firstName": "James",
+    "lastName": "Smith",
+    "dateOfBirth": "1985-03-12",
+    "gender": "Male",
+    "department": "Mathematics",
+    "contact": "+2347012345678",
+    "email": "james.smith@school.com",
+    "residentialAddress": "15 Main St, Lagos",
+    "stateOfOrigin": "Lagos",
+    "cvUpload": "james_smith_cv.pdf",
+    "certificateUpload": "james_smith_certificate.pdf",
+    "lessonNote": [
+      {
+        "subject": "Mathematics",
+        "topic": "Algebra",
+        "date": "2024-09-22",
+        "class": "Primary 4",
+        "attachment": "timeline.pdf",
+        "text": "Introduction to basic algebra concepts."
+      },
+      {
+        "subject": "Mathematics",
+        "topic": "Geometry",
+        "date": "2024-09-29",
+        "class": "Primary 4",
+        "attachment": "geometry_basics.pdf",
+        "text": "Exploring shapes, angles, and measurements."
+      }
+    ]
+  },
+  {
+    "profilePhoto": "https://dummyimage.com/100x100/000/fff&text=Staff+2",
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "dateOfBirth": "1990-07-21",
+    "gender": "Female",
+    "department": "English",
+    "contact": "+2347012345679",
+    "email": "sarah.johnson@school.com",
+    "residentialAddress": "24 Broad St, Abuja",
+    "stateOfOrigin": "Abuja",
+    "cvUpload": "sarah_johnson_cv.pdf",
+    "certificateUpload": "sarah_johnson_certificate.pdf",
+    "lessonNote": [
+      {
+        "subject": "English",
+        "topic": "Grammar",
+        "date": "2024-09-23",
+        "class": "Primary 5",
+        "attachment": "grammar_rules.pdf",
+        "text": "Detailed lesson on grammar rules and structure."
+      },
+      {
+        "subject": "English",
+        "topic": "Creative Writing",
+        "date": "2024-09-30",
+        "class": "Primary 5",
+        "attachment": "writing_guide.pdf",
+        "text": "Guidelines for creative writing and storytelling."
+      }
+    ]
+  },
+  {
+    "profilePhoto": "https://dummyimage.com/100x100/000/fff&text=Staff+3",
+    "firstName": "David",
+    "lastName": "Williams",
+    "dateOfBirth": "1982-11-10",
+    "gender": "Male",
+    "department": "Science",
+    "contact": "+2347012345680",
+    "email": "david.williams@school.com",
+    "residentialAddress": "18 Creek St, Port Harcourt",
+    "stateOfOrigin": "Rivers",
+    "cvUpload": "david_williams_cv.pdf",
+    "certificateUpload": "david_williams_certificate.pdf",
+    "lessonNote": [
+      {
+        "subject": "Science",
+        "topic": "Plants",
+        "date": "2024-09-25",
+        "class": "Primary 3",
+        "attachment": "plant_life.pdf",
+        "text": "Understanding plant life and photosynthesis."
+      },
+      {
+        "subject": "Science",
+        "topic": "The Human Body",
+        "date": "2024-10-02",
+        "class": "Primary 3",
+        "attachment": "human_body.pdf",
+        "text": "An overview of the human body systems."
+      }
+    ]
+  },
+  {
+    "profilePhoto": "https://dummyimage.com/100x100/000/fff&text=Staff+4",
+    "firstName": "Emily",
+    "lastName": "Brown",
+    "dateOfBirth": "1992-05-30",
+    "gender": "Female",
+    "department": "Social Studies",
+    "contact": "+2347012345681",
+    "email": "emily.brown@school.com",
+    "residentialAddress": "10 Hilltop Rd, Jos",
+    "stateOfOrigin": "Plateau",
+    "cvUpload": "emily_brown_cv.pdf",
+    "certificateUpload": "emily_brown_certificate.pdf",
+    "lessonNote": [
+      {
+        "subject": "Social Studies",
+        "topic": "Communities",
+        "date": "2024-09-28",
+        "class": "Primary 4",
+        "attachment": "community_studies.pdf",
+        "text": "An exploration of community roles and functions."
+      },
+      {
+        "subject": "Social Studies",
+        "topic": "Governance",
+        "date": "2024-10-05",
+        "class": "Primary 4",
+        "attachment": "governance.pdf",
+        "text": "An introduction to the basics of governance."
+      }
+    ]
+  },
+  {
+    "profilePhoto": "https://dummyimage.com/100x100/000/fff&text=Staff+5",
+    "firstName": "Michael",
+    "lastName": "Davis",
+    "dateOfBirth": "1975-09-19",
+    "gender": "Male",
+    "department": "Physical Education",
+    "contact": "+2347012345682",
+    "email": "michael.davis@school.com",
+    "residentialAddress": "22 Valley Rd, Enugu",
+    "stateOfOrigin": "Enugu",
+    "cvUpload": "michael_davis_cv.pdf",
+    "certificateUpload": "michael_davis_certificate.pdf",
+    "lessonNote": [
+      {
+        "subject": "Physical Education",
+        "topic": "Team Sports",
+        "date": "2024-09-26",
+        "class": "Primary 6",
+        "attachment": "team_sports.pdf",
+        "text": "Understanding the importance of teamwork in sports."
+      },
+      {
+        "subject": "Physical Education",
+        "topic": "Fitness",
+        "date": "2024-10-03",
+        "class": "Primary 6",
+        "attachment": "fitness_guide.pdf",
+        "text": "Exercises and tips for maintaining physical fitness."
+      }
+    ]
+  },
+  {
+    "profilePhoto": "https://dummyimage.com/100x100/000/fff&text=Staff+6",
+    "firstName": "Jessica",
+    "lastName": "Garcia",
+    "dateOfBirth": "1988-08-14",
+    "gender": "Female",
+    "department": "Music",
+    "contact": "+2347012345683",
+    "email": "jessica.garcia@school.com",
+    "residentialAddress": "30 Oak St, Ibadan",
+    "stateOfOrigin": "Oyo",
+    "cvUpload": "jessica_garcia_cv.pdf",
+    "certificateUpload": "jessica_garcia_certificate.pdf",
+    "lessonNote": [
+      {
+        "subject": "Music",
+        "topic": "Musical Instruments",
+        "date": "2024-09-27",
+        "class": "Primary 2",
+        "attachment": "instruments.pdf",
+        "text": "An introduction to musical instruments and their sounds."
+      },
+      {
+        "subject": "Music",
+        "topic": "Singing",
+        "date": "2024-10-04",
+        "class": "Primary 2",
+        "attachment": "singing_techniques.pdf",
+        "text": "Techniques for improving vocal performance."
+      }
+    ]
+  }
+]

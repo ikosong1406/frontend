@@ -215,7 +215,7 @@
 }
 
 .see-more-button {
-  display: inline-block;
+  background-color: var(--white);
   color: var(--primary);
   padding: 10px 20px;
   border-radius: 5px;

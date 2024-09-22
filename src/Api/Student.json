@@ -1,0 +1,758 @@
+[
+  {
+    "picture": "https://dummyimage.com/100x100/000/fff&text=Student+1",
+    "firstName": "John",
+    "lastName": "Doe",
+    "dateOfBirth": "2010-05-15",
+    "gender": "Male",
+    "class": "Primary 5",
+    "section": "Primary",
+    "stateOfOrigin": "Lagos",
+    "residentialAddress": "123 School St, Lagos",
+    "parentName": "Mr. James Doe",
+    "parentNumber": "+2347012345678",
+    "result": {
+      "2022/2023": {
+        "firstTerm": {
+          "position": "3rd",
+          "mathematics": {
+            "firstTest": 15,
+            "secondTest": 20,
+            "exam": 50,
+            "total": 85,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 13,
+            "secondTest": 18,
+            "exam": 45,
+            "total": 76,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 12,
+            "secondTest": 19,
+            "exam": 50,
+            "total": 81,
+            "grade": "A"
+          }
+        },
+        "secondTerm": {
+          "position": "2nd",
+          "mathematics": {
+            "firstTest": 17,
+            "secondTest": 19,
+            "exam": 47,
+            "total": 83,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 14,
+            "secondTest": 18,
+            "exam": 46,
+            "total": 78,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 13,
+            "secondTest": 17,
+            "exam": 49,
+            "total": 79,
+            "grade": "B"
+          }
+        },
+        "thirdTerm": {
+          "position": "1st",
+          "mathematics": {
+            "firstTest": 18,
+            "secondTest": 20,
+            "exam": 49,
+            "total": 87,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 15,
+            "secondTest": 19,
+            "exam": 47,
+            "total": 81,
+            "grade": "A"
+          },
+          "science": {
+            "firstTest": 14,
+            "secondTest": 18,
+            "exam": 50,
+            "total": 82,
+            "grade": "A"
+          }
+        }
+      },
+      "2023/2024": {
+        "firstTerm": {
+          "position": "2nd",
+          "mathematics": {
+            "firstTest": 16,
+            "secondTest": 19,
+            "exam": 48,
+            "total": 83,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 14,
+            "secondTest": 17,
+            "exam": 46,
+            "total": 77,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 13,
+            "secondTest": 19,
+            "exam": 47,
+            "total": 79,
+            "grade": "B"
+          }
+        }
+      }
+    },
+    "fees": {
+      "2022/2023": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid",
+        "thirdTerm": "paid"
+      },
+      "2023/2024": {
+        "firstTerm": "paid",
+        "secondTerm": "paid"
+      }
+    }
+  },
+  {
+    "picture": "https://dummyimage.com/100x100/000/fff&text=Student+2",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "dateOfBirth": "2011-11-30",
+    "gender": "Female",
+    "class": "Primary 6",
+    "section": "Secondary",
+    "stateOfOrigin": "Ogun",
+    "residentialAddress": "456 Scholar Rd, Ogun",
+    "parentName": "Mrs. Sandra Smith",
+    "parentNumber": "+2347012348765",
+    "result": {
+      "2022/2023": {
+        "firstTerm": {
+          "position": "5th",
+          "mathematics": {
+            "firstTest": 12,
+            "secondTest": 19,
+            "exam": 48,
+            "total": 79,
+            "grade": "B"
+          },
+          "english": {
+            "firstTest": 16,
+            "secondTest": 18,
+            "exam": 42,
+            "total": 76,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 13,
+            "secondTest": 16,
+            "exam": 45,
+            "total": 74,
+            "grade": "B"
+          }
+        },
+        "secondTerm": {
+          "position": "4th",
+          "mathematics": {
+            "firstTest": 14,
+            "secondTest": 20,
+            "exam": 47,
+            "total": 81,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 15,
+            "secondTest": 17,
+            "exam": 44,
+            "total": 76,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 12,
+            "secondTest": 18,
+            "exam": 43,
+            "total": 73,
+            "grade": "B"
+          }
+        },
+        "thirdTerm": {
+          "position": "3rd",
+          "mathematics": {
+            "firstTest": 16,
+            "secondTest": 19,
+            "exam": 50,
+            "total": 85,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 14,
+            "secondTest": 18,
+            "exam": 45,
+            "total": 77,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 13,
+            "secondTest": 17,
+            "exam": 46,
+            "total": 76,
+            "grade": "B"
+          }
+        }
+      },
+      "2023/2024": {
+        "firstTerm": {
+          "position": "1st",
+          "mathematics": {
+            "firstTest": 18,
+            "secondTest": 19,
+            "exam": 48,
+            "total": 85,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 16,
+            "secondTest": 20,
+            "exam": 45,
+            "total": 81,
+            "grade": "A"
+          },
+          "science": {
+            "firstTest": 17,
+            "secondTest": 19,
+            "exam": 46,
+            "total": 82,
+            "grade": "A"
+          }
+        }
+      }
+    },
+    "fees": {
+      "2022/2023": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid",
+        "thirdTerm": "paid"
+      },
+      "2023/2024": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid"
+      }
+    }
+  },
+  {
+    "picture": "https://dummyimage.com/100x100/000/fff&text=Student+3",
+    "firstName": "Michael",
+    "lastName": "Johnson",
+    "dateOfBirth": "2010-02-20",
+    "gender": "Male",
+    "class": "Primary 4",
+    "section": "secondary",
+    "stateOfOrigin": "Ondo",
+    "residentialAddress": "789 Sunshine St, Ondo",
+    "parentName": "Mr. Peter Johnson",
+    "parentNumber": "+2347012349123",
+    "result": {
+      "2022/2023": {
+        "firstTerm": {
+          "position": "4th",
+          "mathematics": {
+            "firstTest": 13,
+            "secondTest": 17,
+            "exam": 45,
+            "total": 75,
+            "grade": "B"
+          },
+          "english": {
+            "firstTest": 12,
+            "secondTest": 16,
+            "exam": 40,
+            "total": 68,
+            "grade": "C"
+          },
+          "science": {
+            "firstTest": 14,
+            "secondTest": 15,
+            "exam": 44,
+            "total": 73,
+            "grade": "B"
+          }
+        },
+        "secondTerm": {
+          "position": "5th",
+          "mathematics": {
+            "firstTest": 16,
+            "secondTest": 17,
+            "exam": 43,
+            "total": 76,
+            "grade": "B"
+          },
+          "english": {
+            "firstTest": 15,
+            "secondTest": 18,
+            "exam": 39,
+            "total": 72,
+            "grade": "C"
+          },
+          "science": {
+            "firstTest": 13,
+            "secondTest": 16,
+            "exam": 42,
+            "total": 71,
+            "grade": "C"
+          }
+        },
+        "thirdTerm": {
+          "position": "2nd",
+          "mathematics": {
+            "firstTest": 17,
+            "secondTest": 18,
+            "exam": 46,
+            "total": 81,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 14,
+            "secondTest": 16,
+            "exam": 41,
+            "total": 71,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 15,
+            "secondTest": 17,
+            "exam": 44,
+            "total": 76,
+            "grade": "B"
+          }
+        }
+      },
+      "2023/2024": {
+        "firstTerm": {
+          "position": "1st",
+          "mathematics": {
+            "firstTest": 19,
+            "secondTest": 20,
+            "exam": 49,
+            "total": 88,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 18,
+            "secondTest": 19,
+            "exam": 47,
+            "total": 84,
+            "grade": "A"
+          },
+          "science": {
+            "firstTest": 17,
+            "secondTest": 18,
+            "exam": 46,
+            "total": 81,
+            "grade": "A"
+          }
+        }
+      }
+    },
+    "fees": {
+      "2022/2023": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid",
+        "thirdTerm": "paid"
+      },
+      "2023/2024": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid"
+      }
+    }
+  },
+  {
+    "picture": "https://dummyimage.com/100x100/000/fff&text=Student+4",
+    "firstName": "Emily",
+    "lastName": "Williams",
+    "dateOfBirth": "2011-03-15",
+    "gender": "Female",
+    "class": "Primary 6",
+    "section": "primary",
+    "stateOfOrigin": "Enugu",
+    "residentialAddress": "234 Pioneer Ave, Enugu",
+    "parentName": "Mrs. Sarah Williams",
+    "parentNumber": "+2347012344567",
+    "result": {
+      "2022/2023": {
+        "firstTerm": {
+          "position": "6th",
+          "mathematics": {
+            "firstTest": 14,
+            "secondTest": 17,
+            "exam": 42,
+            "total": 73,
+            "grade": "B"
+          },
+          "english": {
+            "firstTest": 13,
+            "secondTest": 16,
+            "exam": 38,
+            "total": 67,
+            "grade": "C"
+          },
+          "science": {
+            "firstTest": 12,
+            "secondTest": 15,
+            "exam": 40,
+            "total": 67,
+            "grade": "C"
+          }
+        },
+        "secondTerm": {
+          "position": "5th",
+          "mathematics": {
+            "firstTest": 15,
+            "secondTest": 16,
+            "exam": 44,
+            "total": 75,
+            "grade": "B"
+          },
+          "english": {
+            "firstTest": 14,
+            "secondTest": 18,
+            "exam": 39,
+            "total": 71,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 13,
+            "secondTest": 17,
+            "exam": 41,
+            "total": 71,
+            "grade": "B"
+          }
+        },
+        "thirdTerm": {
+          "position": "4th",
+          "mathematics": {
+            "firstTest": 16,
+            "secondTest": 18,
+            "exam": 46,
+            "total": 80,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 15,
+            "secondTest": 17,
+            "exam": 42,
+            "total": 74,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 16,
+            "secondTest": 18,
+            "exam": 44,
+            "total": 78,
+            "grade": "A"
+          }
+        }
+      },
+      "2023/2024": {
+        "firstTerm": {
+          "position": "2nd",
+          "mathematics": {
+            "firstTest": 17,
+            "secondTest": 19,
+            "exam": 47,
+            "total": 83,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 16,
+            "secondTest": 18,
+            "exam": 43,
+            "total": 77,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 15,
+            "secondTest": 17,
+            "exam": 46,
+            "total": 78,
+            "grade": "A"
+          }
+        }
+      }
+    },
+    "fees": {
+      "2022/2023": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid",
+        "thirdTerm": "paid"
+      },
+      "2023/2024": {
+        "firstTerm": "paid",
+        "secondTerm": "paid"
+      }
+    }
+  },
+  {
+    "picture": "https://dummyimage.com/100x100/000/fff&text=Student+5",
+    "firstName": "Joshua",
+    "lastName": "Brown",
+    "dateOfBirth": "2009-09-25",
+    "gender": "Male",
+    "class": "Primary 3",
+    "section": "secondary",
+    "stateOfOrigin": "Kano",
+    "residentialAddress": "567 Independence Blvd, Kano",
+    "parentName": "Mr. Samuel Brown",
+    "parentNumber": "+2347012348901",
+    "result": {
+      "2022/2023": {
+        "firstTerm": {
+          "position": "3rd",
+          "mathematics": {
+            "firstTest": 15,
+            "secondTest": 18,
+            "exam": 44,
+            "total": 77,
+            "grade": "B"
+          },
+          "english": {
+            "firstTest": 14,
+            "secondTest": 17,
+            "exam": 39,
+            "total": 70,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 12,
+            "secondTest": 16,
+            "exam": 42,
+            "total": 70,
+            "grade": "B"
+          }
+        },
+        "secondTerm": {
+          "position": "2nd",
+          "mathematics": {
+            "firstTest": 16,
+            "secondTest": 19,
+            "exam": 43,
+            "total": 78,
+            "grade": "B"
+          },
+          "english": {
+            "firstTest": 15,
+            "secondTest": 18,
+            "exam": 41,
+            "total": 74,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 14,
+            "secondTest": 18,
+            "exam": 43,
+            "total": 75,
+            "grade": "B"
+          }
+        },
+        "thirdTerm": {
+          "position": "1st",
+          "mathematics": {
+            "firstTest": 18,
+            "secondTest": 20,
+            "exam": 47,
+            "total": 85,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 16,
+            "secondTest": 19,
+            "exam": 42,
+            "total": 77,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 16,
+            "secondTest": 19,
+            "exam": 44,
+            "total": 79,
+            "grade": "A"
+          }
+        }
+      },
+      "2023/2024": {
+        "firstTerm": {
+          "position": "1st",
+          "mathematics": {
+            "firstTest": 19,
+            "secondTest": 20,
+            "exam": 49,
+            "total": 88,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 18,
+            "secondTest": 20,
+            "exam": 44,
+            "total": 82,
+            "grade": "A"
+          },
+          "science": {
+            "firstTest": 17,
+            "secondTest": 20,
+            "exam": 45,
+            "total": 82,
+            "grade": "A"
+          }
+        }
+      }
+    },
+    "fees": {
+      "2022/2023": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid",
+        "thirdTerm": "paid"
+      },
+      "2023/2024": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid"
+      }
+    }
+  },
+  {
+    "picture": "https://dummyimage.com/100x100/000/fff&text=Student+6",
+    "firstName": "Sophia",
+    "lastName": "Davis",
+    "dateOfBirth": "2010-06-12",
+    "gender": "Female",
+    "class": "Primary 5",
+    "section": "primary",
+    "stateOfOrigin": "Osun",
+    "residentialAddress": "890 Victory Rd, Osun",
+    "parentName": "Mrs. Anita Davis",
+    "parentNumber": "+2347012342345",
+    "result": {
+      "2022/2023": {
+        "firstTerm": {
+          "position": "3rd",
+          "mathematics": {
+            "firstTest": 17,
+            "secondTest": 18,
+            "exam": 45,
+            "total": 80,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 16,
+            "secondTest": 17,
+            "exam": 43,
+            "total": 76,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 15,
+            "secondTest": 18,
+            "exam": 44,
+            "total": 77,
+            "grade": "B"
+          }
+        },
+        "secondTerm": {
+          "position": "2nd",
+          "mathematics": {
+            "firstTest": 18,
+            "secondTest": 19,
+            "exam": 44,
+            "total": 81,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 17,
+            "secondTest": 18,
+            "exam": 42,
+            "total": 77,
+            "grade": "B"
+          },
+          "science": {
+            "firstTest": 16,
+            "secondTest": 19,
+            "exam": 45,
+            "total": 80,
+            "grade": "A"
+          }
+        },
+        "thirdTerm": {
+          "position": "1st",
+          "mathematics": {
+            "firstTest": 19,
+            "secondTest": 20,
+            "exam": 46,
+            "total": 85,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 18,
+            "secondTest": 19,
+            "exam": 44,
+            "total": 81,
+            "grade": "A"
+          },
+          "science": {
+            "firstTest": 17,
+            "secondTest": 20,
+            "exam": 46,
+            "total": 83,
+            "grade": "A"
+          }
+        }
+      },
+      "2023/2024": {
+        "firstTerm": {
+          "position": "1st",
+          "mathematics": {
+            "firstTest": 19,
+            "secondTest": 20,
+            "exam": 48,
+            "total": 87,
+            "grade": "A"
+          },
+          "english": {
+            "firstTest": 17,
+            "secondTest": 19,
+            "exam": 45,
+            "total": 81,
+            "grade": "A"
+          },
+          "science": {
+            "firstTest": 16,
+            "secondTest": 18,
+            "exam": 47,
+            "total": 81,
+            "grade": "A"
+          }
+        }
+      }
+    },
+    "fees": {
+      "2022/2023": {
+        "firstTerm": "paid",
+        "secondTerm": "paid",
+        "thirdTerm": "paid"
+      },
+      "2023/2024": {
+        "firstTerm": "paid",
+        "secondTerm": "notPaid"
+      }
+    }
+  }
+]

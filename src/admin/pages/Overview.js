@@ -227,10 +227,6 @@ const Overview = () => {
               </div>
             ))}
           </div>
-          <button onClick={handleAddEvent} className="btn-add-event">
-            <FaPlus />
-            <span> New Event</span>
-          </button>
         </div>
       </div>
 

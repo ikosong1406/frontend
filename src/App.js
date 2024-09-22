@@ -10,6 +10,10 @@ import Teachers from "./admin/pages/Teachers";
 import Students from "./admin/pages/Students";
 import Fee from "./admin/pages/Fees";
 import Events from "./admin/pages/Events";
+import NewStudent from "./admin/pages/NewStudent";
+import NewTeachers from "./admin/pages/NewTeachers";
+import StudentsDetails from "./admin/pages/StudentDetails";
+import TeachersDetails from "./admin/pages/TeachersDetails";
 import TeachLayout from "./teachers/components/TeachLayout";
 import Lesson from "./teachers/pages/Lesson";
 import NewLesson from "./teachers/pages/NewLesson";
@@ -60,6 +64,10 @@ function App() {
                 <Route path="teachers" element={<Teachers />} />
                 <Route path="fee" element={<Fee />} />
                 <Route path="events" element={<Events />} />
+                <Route path="newStudent" element={<NewStudent />} />
+                <Route path="newTeachers" element={<NewTeachers />} />
+                <Route path="studentsDetails" element={<StudentsDetails />} />
+                <Route path="teachersDetails" element={<TeachersDetails />} />
               </Route>
               <Route path="/teacher" element={<TeachLayout />}>
                 <Route index element={<Lesson />} />
