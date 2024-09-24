@@ -3,15 +3,16 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { jsPDF } from "jspdf";
-import { Document, Packer, Paragraph, TextRun } from "docx";
 import "../styles/NewLesson.css";
-import { FaBold } from "react-icons/fa";
-import { FaItalic } from "react-icons/fa";
-import { FaUnderline } from "react-icons/fa";
-import { FaAlignLeft } from "react-icons/fa";
-import { FaAlignCenter } from "react-icons/fa";
-import { FaAlignRight } from "react-icons/fa";
-import { FaAlignJustify } from "react-icons/fa";
+import {
+  FaBold,
+  FaItalic,
+  FaUnderline,
+  FaAlignLeft,
+  FaAlignCenter,
+  FaAlignRight,
+  FaAlignJustify,
+} from "react-icons/fa";
 
 const NewLesson = () => {
   const { id } = useParams();
@@ -33,6 +34,9 @@ const NewLesson = () => {
     English: "#3cb371",
   });
   const [selectedCategory, setSelectedCategory] = useState("Math");
+
+  // State for the attached file
+  const [attachedFile, setAttachedFile] = useState(null);
 
   useEffect(() => {
     if (id === "new") {
@@ -82,33 +86,12 @@ const NewLesson = () => {
     doc.save(`${note.topic || "document"}.pdf`);
   };
 
-  const handleExportWord = async () => {
-    const doc = new Document({
-      sections: [
-        {
-          properties: {},
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun(note.topic || "Document Title").bold().size(24),
-                new TextRun("\n\n"),
-                new TextRun(quillRef.current.getEditor().root.innerText),
-              ],
-            }),
-          ],
-        },
-      ],
-    });
-
-    const buffer = await Packer.toBuffer(doc);
-    const blob = new Blob([buffer], {
-      type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${note.topic || "document"}.docx`;
-    link.click();
+  // Handle file attachment
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setAttachedFile(file);
+    }
   };
 
   return (
@@ -174,8 +157,14 @@ const NewLesson = () => {
 
         <button onClick={handlePrint}>Print</button>
         <button onClick={handleExportPDF}>Export as PDF</button>
-        <button onClick={handleExportWord}>Export as Word</button>
         <button onClick={handleSave}>Save</button>
+
+        {/* File Attachment */}
+        <input
+          type="file"
+          onChange={handleFileUpload}
+          style={{ marginLeft: "10px" }}
+        />
       </div>
 
       <div className="header">

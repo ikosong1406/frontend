@@ -23,6 +23,7 @@ const LibSide = () => {
           end
         >
           <FaBook className="icon" />
+          <h3 className="label">Notes</h3>
         </NavLink>
         <NavLink
           to="/teacher/timetable"
@@ -31,6 +32,7 @@ const LibSide = () => {
           end
         >
           <IoGrid className="icon" />
+          <h3 className="label">Timetable</h3>
         </NavLink>
         <NavLink
           to="/teacher/student"
@@ -38,6 +40,7 @@ const LibSide = () => {
           onClick={() => setShowNav(false)}
         >
           <FaUsers className="icon" />
+          <h3 className="label">Students</h3>
         </NavLink>
       </div>
       <div className="sideDiv4">

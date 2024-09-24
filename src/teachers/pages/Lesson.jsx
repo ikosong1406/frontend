@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Lesson.css";
-import { FaCog } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
 
 const Lesson = () => {
   const navigate = useNavigate();
@@ -45,10 +45,6 @@ const Lesson = () => {
     navigate(`/teacher/newLesson/${note.id}`, { state: { note } });
   };
 
-  const handleSettingsClick = () => {
-    alert("Settings clicked! (Implement color settings here)");
-  };
-
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -63,12 +59,12 @@ const Lesson = () => {
           onChange={handleSearchChange}
           className="lesson-search"
         />
-        <FaCog className="settings-icon" onClick={handleSettingsClick} />
         <button
           className="new-lesson-btn"
           onClick={() => navigate("/teacher/newLesson/new")}
         >
-          Create New Lesson
+          <FaPlus style={{ fontSize: 12 }} />
+          <span> Create New Lesson</span>
         </button>
       </div>
 
