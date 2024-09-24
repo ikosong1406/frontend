@@ -6,6 +6,8 @@ import { FaUserGraduate } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
 import { RiCoinsFill } from "react-icons/ri";
 import { BsCalendarEventFill } from "react-icons/bs";
+import { FaAngleDoubleUp } from "react-icons/fa";
+import logo from "../../images/logo.jpg";
 
 const AdminSide = () => {
   const [showNav, setShowNav] = useState(false);
@@ -13,7 +15,10 @@ const AdminSide = () => {
   return (
     <div className="sideDiv1">
       <div className="sideDiv2">
-        <h2>Logo</h2>
+        <img
+          src={logo}
+          style={{ width: 70, height: 70, borderRadius: "50%" }}
+        />
       </div>
       <div className="sideDiv3" style={{ marginTop: 50 }}>
         <NavLink
@@ -57,6 +62,14 @@ const AdminSide = () => {
         >
           <BsCalendarEventFill className="icon" />
           <h3 className="label">Events</h3>
+        </NavLink>
+        <NavLink
+          to="/admin/events"
+          className={({ isActive }) => (isActive ? "active" : "")}
+          onClick={() => setShowNav(false)}
+        >
+          <FaAngleDoubleUp className="icon" />
+          <h3 className="label">Promotion</h3>
         </NavLink>
       </div>
       {/* <div className="sideDiv4" style={{ marginTop: 50 }}>

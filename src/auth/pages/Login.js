@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import logo from "../../images/logo.jpg";
+import { BsEyeFill } from "react-icons/bs";
+import { BsEyeSlashFill } from "react-icons/bs";
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -23,7 +26,7 @@ const Login = () => {
 
     setTimeout(() => {
       setLoading(false);
-      navigate("/teacher");
+      navigate("/admin");
     }, 3000);
   };
 
@@ -32,9 +35,14 @@ const Login = () => {
       <div className="overlay"></div>
       <div className="login-box">
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <h2>Logo</h2>
+          <img
+            src={logo}
+            style={{ width: 70, height: 70, borderRadius: "50%" }}
+          />
         </div>
-        <h2>Login</h2>
+        <h2 style={{ color: "white", fontSize: 20, textAlign: "left" }}>
+          Login
+        </h2>
         {error && <p className="error-msg">{error}</p>}
         <div className="input-group">
           <label>Email</label>
@@ -59,7 +67,7 @@ const Login = () => {
               className="toggle-btn"
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
-              {passwordVisible ? "🙈" : "👁️"}
+              {passwordVisible ? <BsEyeSlashFill /> : <BsEyeFill />}
             </button>
           </div>
         </div>
@@ -70,12 +78,6 @@ const Login = () => {
         >
           {loading ? "Logging in..." : "Login"}
         </button>
-        <p className="signin-text">
-          Don't have an account?{" "}
-          <Link to="/register" className="signin-link">
-            Sign up
-          </Link>
-        </p>
       </div>
     </div>
   );

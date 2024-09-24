@@ -1,9 +1,9 @@
 import { useState } from "react";
-// import "../styles/TeachSide.css";
 import user from "../../images/usericon.jpeg";
 import { NavLink } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
+import logo from "../../images/logo.jpg";
 
 const LibSide = () => {
   const [showNav, setShowNav] = useState(false);
@@ -11,7 +11,10 @@ const LibSide = () => {
   return (
     <div className="sideDiv1">
       <div className="sideDiv2">
-        <h2>Logo</h2>
+        <img
+          src={logo}
+          style={{ width: 70, height: 70, borderRadius: "50%" }}
+        />
       </div>
       <div className="sideDiv3">
         <NavLink

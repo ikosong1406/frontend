@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/TeachSide.css";
-// import logo from "../images/bitvelar.png";
+import logo from "../../images/logo.jpg";
 import user from "../../images/usericon.jpeg";
 import { NavLink } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
@@ -13,7 +13,10 @@ const LibSide = () => {
   return (
     <div className="sideDiv1">
       <div className="sideDiv2">
-        <h2>Logo</h2>
+        <img
+          src={logo}
+          style={{ width: 70, height: 70, borderRadius: "50%" }}
+        />
       </div>
       <div className="sideDiv3">
         <NavLink
@@ -43,7 +46,7 @@ const LibSide = () => {
           <h3 className="label">Students</h3>
         </NavLink>
       </div>
-      <div className="sideDiv4">
+      {/* <div className="sideDiv4">
         <img
           src={user}
           alt=""
@@ -58,7 +61,7 @@ const LibSide = () => {
           <h3>Alex</h3>
           <h4>Teacher</h4>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

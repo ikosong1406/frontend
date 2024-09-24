@@ -44,7 +44,7 @@ function App() {
           <ThreeCircles
             height="80"
             width="80"
-            color="#ED8B8B"
+            color="#7cb5cb"
             ariaLabel="bars-loading"
             wrapperStyle={{}}
             wrapperClass=""
