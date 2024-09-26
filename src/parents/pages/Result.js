@@ -7,12 +7,25 @@ const Result = () => {
   const [term, setTerm] = useState("");
   const [resultData, setResultData] = useState(null);
   const [error, setError] = useState("");
+  const [paymentStatus, setPaymentStatus] = useState(null);
 
-  // Dummy result data
+  // Dummy result data with payment status
   const dummyData = {
     studentName: "John Doe",
     className: "Grade 10",
     position: "3rd",
+    paymentStatus: {
+      "2023/2024": {
+        "First Term": "paid",
+        "Second Term": "notPaid",
+        "Third Term": "paid",
+      },
+      "2022/2023": {
+        "First Term": "paid",
+        "Second Term": "paid",
+        "Third Term": "notPaid",
+      },
+    },
     subjects: [
       {
         name: "Math",
@@ -46,8 +59,17 @@ const Result = () => {
 
     // Simulate the process of retrieving student result
     if (studentId && section && term) {
-      setResultData(dummyData); // Set the dummy data to display
-      setError("");
+      const status = dummyData.paymentStatus[section]?.[term];
+
+      if (status === "paid") {
+        setResultData(dummyData); // Set the dummy data to display
+        setError("");
+        setPaymentStatus("paid");
+      } else {
+        setResultData(null);
+        setError("Student has not paid for this section and term.");
+        setPaymentStatus("notPaid");
+      }
     } else {
       setError("Please fill all the fields to view the result.");
     }
@@ -105,7 +127,7 @@ const Result = () => {
 
       {error && <p className="error-message">{error}</p>}
 
-      {resultData && (
+      {resultData && paymentStatus === "paid" && (
         <div className="result-details">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <h3>Name: {resultData.studentName}</h3>

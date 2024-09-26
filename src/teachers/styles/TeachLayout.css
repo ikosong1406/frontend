@@ -16,6 +16,7 @@
   margin-bottom: 25px;
   border-radius: 20px;
   padding: 10px;
+  min-height: 700px;
 }
 
 .bottom-tab-container {

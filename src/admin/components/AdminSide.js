@@ -64,7 +64,7 @@ const AdminSide = () => {
           <h3 className="label">Events</h3>
         </NavLink>
         <NavLink
-          to="/admin/events"
+          to="/admin/promotion"
           className={({ isActive }) => (isActive ? "active" : "")}
           onClick={() => setShowNav(false)}
         >

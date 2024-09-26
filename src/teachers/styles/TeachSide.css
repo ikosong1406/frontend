@@ -10,18 +10,18 @@
 
 .sideDiv2 {
   display: flex;
+  margin-left: 30%;
   justify-content: center;
 }
 
 .sideDiv2 img {
-  width: 100px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .sideDiv3 {
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 70px;
 }
 
 .sideDiv3 a {

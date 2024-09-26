@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Student.css"; // Import CSS for styling
+import "../styles/Student.css";
 
 const students = [
   {
@@ -34,7 +34,7 @@ const Student = () => {
   const navigate = useNavigate();
 
   const handleViewClick = (id) => {
-    navigate(`/student/${id}`);
+    navigate(`/teacher/studentDetails/${id}`);
   };
 
   return (

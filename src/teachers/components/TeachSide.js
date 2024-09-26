@@ -6,8 +6,9 @@ import { NavLink } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
+import { FaRepeat } from "react-icons/fa6";
 
-const LibSide = () => {
+const TeachSide = () => {
   const [showNav, setShowNav] = useState(false);
 
   return (
@@ -45,6 +46,14 @@ const LibSide = () => {
           <FaUsers className="icon" />
           <h3 className="label">Students</h3>
         </NavLink>
+        <NavLink
+          to="/teacher/review"
+          className={({ isActive }) => (isActive ? "active" : "")}
+          onClick={() => setShowNav(false)}
+        >
+          <FaRepeat className="icon" />
+          <h3 className="label">Review</h3>
+        </NavLink>
       </div>
       {/* <div className="sideDiv4">
         <img
@@ -66,4 +75,4 @@ const LibSide = () => {
   );
 };
 
-export default LibSide;
+export default TeachSide;
