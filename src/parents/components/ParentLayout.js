@@ -19,7 +19,7 @@ const Layout = () => {
           className="bottom-tab-container"
           style={{
             padding: 5,
-            backgroundColor: "#ed8b8b",
+            backgroundColor: "#7cb5cb",
             width: "50%",
             borderRadius: "0 10px 10px 0",
             display: "flex",
@@ -27,9 +27,14 @@ const Layout = () => {
           }}
         >
           <FaBook
-            style={{ alignSelf: "center", fontSize: 30, color: "white" }}
+            style={{ alignSelf: "center", fontSize: 25, color: "white" }}
           />
-          <h2 style={{ alignSelf: "center" }}> Result </h2>
+          <h2
+            style={{ alignSelf: "center", fontSize: 20, alignSelf: "center" }}
+          >
+            {" "}
+            Result{" "}
+          </h2>
         </div>
       ) : null}
       <div className="page-container">
