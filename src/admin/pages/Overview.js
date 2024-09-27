@@ -105,7 +105,7 @@ const Overview = () => {
   };
 
   const handleAddStudent = () => {
-    navigate("/admin/add-student");
+    navigate("/admin/newStudent");
   };
 
   const handleAddEvent = () => {

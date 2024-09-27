@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { storeUserToken } from "../../Api/storage";
@@ -16,7 +15,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -68,12 +66,10 @@ const Login = () => {
           <img
             src={logo}
             style={{ width: 70, height: 70, borderRadius: "50%" }}
+            alt="logo"
           />
         </div>
-        <h2 style={{ color: "white", fontSize: 20, textAlign: "left" }}>
-          Login
-        </h2>
-        {error && <p className="error-msg">{error}</p>}
+        <h2 style={{ color: "white", fontSize: 20 }}>Login</h2>
         <div className="input-group">
           <label>Email</label>
           <input

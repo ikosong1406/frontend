@@ -45,7 +45,7 @@ const AdminSide = () => {
           onClick={() => setShowNav(false)}
         >
           <HiUsers className="icon" />
-          <h3 className="label">Teachers</h3>
+          <h3 className="label">Staffs</h3>
         </NavLink>
         <NavLink
           to="/admin/fee"

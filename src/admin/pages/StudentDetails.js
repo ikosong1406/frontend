@@ -113,15 +113,17 @@ const StudentDetails = () => {
             alt={`${student.firstName} ${student.lastName}`}
             className="profile-pic"
           />
-          <h2>
-            {student.firstName} {student.lastName}
-          </h2>
-          <button className="save-buttons">
-            <FaEdit /> <span> Save Profile</span>
-          </button>
-          <button className="delete-buttons">
-            <FaTrashAlt /> <span> Delete Profile</span>
-          </button>
+          <div style={{ width: "80%" }}>
+            <h2 style={{ color: "black", textAlign: "left" }}>
+              {student.firstName} {student.lastName}
+            </h2>
+            <button className="save-buttons">
+              <FaEdit /> <span> Save Profile</span>
+            </button>
+            <button className="delete-buttons">
+              <FaTrashAlt /> <span> Delete Profile</span>
+            </button>
+          </div>
         </div>
 
         {/* Right Section - Data or Report */}
@@ -150,104 +152,68 @@ const StudentDetails = () => {
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginTop: 10,
-                    padding: "0 10px 0 10px",
-                    width: "50%",
+                    width: "100%",
                   }}
                 >
                   <div>
-                    <h3>Age</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {calculateAge(student.dateOfBirth)}
-                    </p>
+                    <div>
+                      <h3>Age</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {calculateAge(student.dateOfBirth)}
+                      </p>
+                    </div>
+                    <div style={{ marginTop: 30 }}>
+                      <h3>Gender</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.gender}
+                      </p>
+                    </div>
+                    <div style={{ marginTop: 30 }}>
+                      <h3>Section</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.section}
+                      </p>
+                    </div>
                   </div>
                   <div>
-                    <h3>Gender</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.gender}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: 10,
-                    padding: "0 10px 0 10px",
-                    width: "50%",
-                  }}
-                >
-                  <div>
-                    <h3>Section</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.section}
-                    </p>
+                    <div>
+                      <h3>Class</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.class}
+                      </p>
+                    </div>
+                    <div style={{ marginTop: 30 }}>
+                      <h3>Date of Birth</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.dateOfBirth}
+                      </p>
+                    </div>
+                    <div style={{ marginTop: 30 }}>
+                      <h3>State of Origin</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.stateOfOrigin}
+                      </p>
+                    </div>
                   </div>
                   <div>
-                    <h3>Class</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.class}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: 10,
-                    padding: "0 10px 0 10px",
-                    width: "50%",
-                  }}
-                >
-                  <div>
-                    <h3>Date of Birth</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.dateOfBirth}
-                    </p>
-                  </div>
-                  <div>
-                    <h3>State of Origin</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.stateOfOrigin}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: 10,
-                    padding: "0 10px 0 10px",
-                    width: "50%",
-                  }}
-                >
-                  <div>
-                    <h3>Parent's Name</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.parentName}
-                    </p>
-                  </div>
-                  <div>
-                    <h3>Parent's Contact</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.parentNumber}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: 10,
-                    padding: "0 10px 0 10px",
-                    width: "50%",
-                  }}
-                >
-                  <div>
-                    <h3>Address</h3>
-                    <p className="class" style={{ textAlign: "left" }}>
-                      {student.residentialAddress}
-                    </p>
+                    <div>
+                      <h3>Parent's Name</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.parentName}
+                      </p>
+                    </div>
+                    <div style={{ marginTop: 30 }}>
+                      <h3>Parent's Contact</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.parentNumber}
+                      </p>
+                    </div>
+                    <div style={{ marginTop: 30 }}>
+                      <h3>Address</h3>
+                      <p className="class" style={{ textAlign: "left" }}>
+                        {student.residentialAddress}
+                      </p>
+                    </div>
                   </div>
                 </div>
 

@@ -65,7 +65,7 @@ const Students = () => {
           </button>
           <button
             className="add-student-button"
-            onClick={() => (window.location.href = "/new-student")}
+            onClick={() => (window.location.href = "/admin/newStudent")}
           >
             <FaPlus style={{ fontSize: 14 }} />
             <span> Add New Student</span>
