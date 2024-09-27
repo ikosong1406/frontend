@@ -295,7 +295,7 @@ const Students = () => {
                   className="see-more-button"
                   onClick={() =>
                     navigate(`/admin/teachersDetails`, {
-                      state: { student: selectedStudent },
+                      state: { teacher: selectedStudent },
                     })
                   }
                 >

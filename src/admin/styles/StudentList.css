@@ -1,0 +1,57 @@
+.student-list-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: var(--background);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+ul.student-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+li.student-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  width: 20px;
+}
+
+.student-profile-pic {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.student-name {
+  font-size: 18px;
+}
+
+.promote-btn {
+  background-color: green;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.promote-btn:hover {
+  background-color: darkgreen;
+}
