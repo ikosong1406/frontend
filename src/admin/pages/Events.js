@@ -4,28 +4,11 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import "react-calendar/dist/Calendar.css";
 import "../styles/Events.css";
 import { FaPlus } from "react-icons/fa6";
-import { FaEllipsisV } from "react-icons/fa";
-
-const dummyEvents = {
-  "2024-09-13": [
-    {
-      title: "Sports Day",
-      description: "Annual sports competition",
-      color: "red",
-    },
-  ],
-  "2024-10-01": [
-    {
-      title: "Parent-Teacher Meeting",
-      description: "PTA meeting at 10 AM",
-      color: "blue",
-    },
-  ],
-};
+import { FaTrash } from "react-icons/fa";
+import eventData from "../../Api/Events.json"; // Import JSON file
 
 const EventsPage = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [events, setEvents] = useState(dummyEvents);
+  const [events, setEvents] = useState(eventData); // Use imported eventData
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventDetails, setEventDetails] = useState({
     title: "",
@@ -33,15 +16,6 @@ const EventsPage = () => {
     date: "",
     color: "",
   });
-
-  const handleDateClick = (info) => {
-    const dateStr = info.dateStr;
-    const eventsForDate = events[dateStr] || [];
-    setSelectedDate(dateStr);
-    setEventDetails(
-      eventsForDate[0] || { title: "", description: "", color: "" }
-    );
-  };
 
   const handleAddEventClick = () => {
     setIsModalOpen(true); // Open modal to add an event
@@ -53,7 +27,6 @@ const EventsPage = () => {
 
   const handleEventSubmit = (e) => {
     e.preventDefault();
-    // Update events object with new event details
     const newEvent = {
       title: eventDetails.title,
       description: eventDetails.description,
@@ -66,6 +39,23 @@ const EventsPage = () => {
         : [newEvent],
     }));
     handleCloseModal();
+  };
+
+  const handleDeleteEvent = (eventDate, eventIndex) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this event?"
+    );
+    if (confirmDelete) {
+      setEvents((prevEvents) => {
+        const updatedEvents = { ...prevEvents };
+        updatedEvents[eventDate].splice(eventIndex, 1);
+        // If no events left on the date, remove the date from the object
+        if (updatedEvents[eventDate].length === 0) {
+          delete updatedEvents[eventDate];
+        }
+        return updatedEvents;
+      });
+    }
   };
 
   const allEvents = Object.keys(events).flatMap((date) =>
@@ -96,7 +86,6 @@ const EventsPage = () => {
               plugins={[dayGridPlugin]}
               initialView="dayGridMonth"
               events={allEvents}
-              dateClick={handleDateClick}
               height={"90vh"}
               width={"100vh"}
             />
@@ -126,11 +115,11 @@ const EventsPage = () => {
                   ></div>
                 </div>
                 <div className="event-menu">
-                  <FaEllipsisV />
-                  <div className="event-actions">
-                    <button>Edit</button>
-                    <button>Delete</button>
-                  </div>
+                  <FaTrash
+                    className="delete-icon"
+                    style={{ cursor: "pointer", color: "red" }}
+                    onClick={() => handleDeleteEvent(event.date, event.index)}
+                  />
                 </div>
               </div>
             ))}
@@ -193,25 +182,8 @@ const EventsPage = () => {
               </label>
               <button type="submit">Add Event</button>
             </form>
-            <button onClick={handleCloseModal}>Close</button>
+            <button onClick={handleCloseModal}>X</button>
           </div>
-        </div>
-      )}
-
-      {/* Event Details Pop-up when a date is clicked */}
-      {selectedDate && eventDetails.title && (
-        <div className="event-popup">
-          <h3>Event Details</h3>
-          <p>
-            <strong>Date:</strong> {selectedDate}
-          </p>
-          <p>
-            <strong>Title:</strong> {eventDetails.title}
-          </p>
-          <p>
-            <strong>Description:</strong> {eventDetails.description}
-          </p>
-          <button onClick={() => setSelectedDate(null)}>Close</button>
         </div>
       )}
     </div>

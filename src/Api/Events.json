@@ -1,0 +1,72 @@
+{
+  "2024-09-13": [
+    {
+      "title": "Sports Day",
+      "description": "Annual sports competition",
+      "color": "red"
+    }
+  ],
+  "2024-09-25": [
+    {
+      "title": "Science Exhibition",
+      "description": "Display of student projects",
+      "color": "green"
+    }
+  ],
+  "2024-10-01": [
+    {
+      "title": "Parent-Teacher Meeting",
+      "description": "PTA meeting at 10 AM",
+      "color": "blue"
+    }
+  ],
+  "2024-10-15": [
+    {
+      "title": "Mid-term Break",
+      "description": "School closed for mid-term break",
+      "color": "orange"
+    }
+  ],
+  "2024-11-05": [
+    {
+      "title": "Cultural Day",
+      "description": "Celebrate cultural diversity",
+      "color": "purple"
+    }
+  ],
+  "2024-11-25": [
+    {
+      "title": "End of Term Party",
+      "description": "Party to celebrate the end of term",
+      "color": "yellow"
+    }
+  ],
+  "2024-12-20": [
+    {
+      "title": "Christmas Break",
+      "description": "School closes for Christmas break",
+      "color": "red"
+    }
+  ],
+  "2025-01-05": [
+    {
+      "title": "New Year Celebration",
+      "description": "Welcome the new year",
+      "color": "blue"
+    }
+  ],
+  "2025-02-14": [
+    {
+      "title": "Valentine's Day Celebration",
+      "description": "Celebration of love and friendship",
+      "color": "pink"
+    }
+  ],
+  "2025-03-01": [
+    {
+      "title": "Mathematics Competition",
+      "description": "Inter-school math competition",
+      "color": "green"
+    }
+  ]
+}
