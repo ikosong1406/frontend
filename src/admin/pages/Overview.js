@@ -7,7 +7,6 @@ import "react-calendar/dist/Calendar.css";
 import "../styles/Overview.css";
 import { IoPersonAdd } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
-import { FaEllipsisV } from "react-icons/fa";
 import students from "../../images/students.png";
 import teachers from "../../images/teachers.png";
 import income from "../../images/income.png";
@@ -200,7 +199,10 @@ const Overview = () => {
             {allEvents.map((event, index) => (
               <div key={index} className="event-item">
                 <div>
-                  <h2 className="event-date" style={{ color: event.color }}>
+                  <h2
+                    className="event-date"
+                    style={{ color: event.color, fontSize: 18 }}
+                  >
                     {event.date}
                   </h2>
                   <h3 className="event-title" style={{ color: "black" }}>
@@ -216,13 +218,6 @@ const Overview = () => {
                       marginBottom: 10,
                     }}
                   ></div>
-                </div>
-                <div className="event-menu">
-                  <FaEllipsisV />
-                  <div className="event-actions">
-                    <button>Edit</button>
-                    <button>Delete</button>
-                  </div>
                 </div>
               </div>
             ))}

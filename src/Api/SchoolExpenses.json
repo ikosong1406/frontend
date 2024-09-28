@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Salaries",
+    "name": "Teacher Salaries",
+    "amount": 25000,
+    "date": "2024-01-15"
+  },
+  {
+    "label": "Maintenance",
+    "name": "Building Maintenance",
+    "amount": 15000,
+    "date": "2024-01-18"
+  },
+  {
+    "label": "Utilities",
+    "name": "Electricity and Water",
+    "amount": 5000,
+    "date": "2024-01-20"
+  },
+  {
+    "label": "Miscellaneous",
+    "name": "Sports Equipment",
+    "amount": 3000,
+    "date": "2024-01-25"
+  }
+]

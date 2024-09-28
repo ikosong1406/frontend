@@ -1,30 +1,6 @@
 /* Container and layout */
 .fees-page {
   padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-}
-
-.button-group {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.button-group button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 0 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.button-group button:hover {
-  background-color: #0056b3;
 }
 
 /* Fees Collection Section */
@@ -37,8 +13,7 @@
 .fees-overview {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
+  /* height: 250px; */
 }
 
 .fees-line-chart {
@@ -48,18 +23,19 @@
 .fees-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  /* gap: 20px; */
+  width: 30%;
+  height: 250px;
 }
 
-.card {
-  background-color: white;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+.fees-cards .card {
+  background-color: var(--primary);
   padding: 20px;
   border-radius: 10px;
-  text-align: center;
-  font-size: 18px;
-  color: #333;
   font-weight: bold;
+  width: 100px;
+  display: block;
+  height: 70px;
 }
 
 /* Fees List */
@@ -72,24 +48,6 @@
 
 .fees-list h3 {
   margin-bottom: 10px;
-  font-size: 22px;
-  color: #333;
-}
-
-.fees-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.fees-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 16px;
-  color: #555;
-}
-
-.fees-list li:last-child {
-  border-bottom: none;
 }
 
 /* School Expenses Section */
@@ -102,8 +60,6 @@
 .expenses-overview {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
 }
 
 .expenses-line-chart,
@@ -135,30 +91,32 @@
   color: #333;
 }
 
-.expenses-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.expenses-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 16px;
-  color: #555;
-}
-
 .expenses-list li:last-child {
   border-bottom: none;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-  .fees-cards {
-    grid-template-columns: 1fr;
-  }
+.fees-list table,
+.expenses-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  .fees-overview,
-  .expenses-overview {
-    flex-direction: column;
-  }
+.fees-list table th,
+.expenses-list table th,
+.fees-list table td,
+.expenses-list table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.fees-list table th,
+.expenses-list table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.fees-list table img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }

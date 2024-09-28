@@ -1,0 +1,42 @@
+[
+  {
+    "photo": "john_doe.jpg",
+    "name": "John Doe",
+    "class": "Grade 5",
+    "feePaid": "Tuition",
+    "amount": 1000,
+    "date": "2024-01-10"
+  },
+  {
+    "photo": "jane_smith.jpg",
+    "name": "Jane Smith",
+    "class": "Grade 6",
+    "feePaid": "Tuition",
+    "amount": 1500,
+    "date": "2024-01-12"
+  },
+  {
+    "photo": "michael_brown.jpg",
+    "name": "Michael Brown",
+    "class": "Grade 7",
+    "feePaid": "Activity Fee",
+    "amount": 500,
+    "date": "2024-01-15"
+  },
+  {
+    "photo": "emily_clark.jpg",
+    "name": "Emily Clark",
+    "class": "Grade 8",
+    "feePaid": "Tuition",
+    "amount": 2000,
+    "date": "2024-01-20"
+  },
+  {
+    "photo": "chris_evans.jpg",
+    "name": "Chris Evans",
+    "class": "Grade 9",
+    "feePaid": "Miscellaneous",
+    "amount": 800,
+    "date": "2024-01-25"
+  }
+]
