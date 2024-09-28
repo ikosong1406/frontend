@@ -10,6 +10,7 @@
   justify-content: space-between;
   background-color: var(--white);
   padding: 10px;
+  border-radius: 10px;
 }
 
 .toolbar button,
@@ -25,6 +26,7 @@
   overflow: hidden; /* Ensure container does not overflow */
   height: 370px;
   background-color: var(--white);
+  border-radius: 10px;
 }
 
 .ql-editor {

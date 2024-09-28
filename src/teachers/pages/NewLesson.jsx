@@ -25,7 +25,7 @@ const NewLesson = () => {
     topic: "",
     date: "",
     className: "",
-    content: "",
+    text: "",
     categoryColor: "#ffffff",
   });
   const [categories, setCategories] = useState({
@@ -44,7 +44,7 @@ const NewLesson = () => {
         topic: location.state?.note?.topic || "",
         date: location.state?.note?.date || "",
         className: location.state?.note?.className || "",
-        content: "",
+        text: location.state?.note?.text || "",
         categoryColor: "#ffffff",
       });
     } else {
@@ -53,7 +53,7 @@ const NewLesson = () => {
           topic: "",
           date: "",
           className: "",
-          content: "",
+          text: "",
           categoryColor: "#ffffff",
         }
       );
@@ -83,7 +83,7 @@ const NewLesson = () => {
     const doc = new jsPDF();
     const content = quillRef.current.getEditor().root.innerText;
     doc.text(content, 10, 10);
-    doc.save(`${note.topic || "document"}.pdf`);
+    // doc.save(${note.topic || "document"}.pdf);
   };
 
   // Handle file attachment
@@ -162,6 +162,7 @@ const NewLesson = () => {
         {/* File Attachment */}
         <input
           type="file"
+          // value={note.attachment}
           onChange={handleFileUpload}
           style={{ marginLeft: "10px" }}
         />
@@ -194,7 +195,7 @@ const NewLesson = () => {
 
       <ReactQuill
         ref={quillRef}
-        value={note.content}
+        value={note.text}
         onChange={(content) => setNote({ ...note, content })}
         modules={{
           toolbar: false, // Disable Quill's default toolbar

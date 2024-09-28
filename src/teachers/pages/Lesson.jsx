@@ -6,34 +6,37 @@ import { FaPlus } from "react-icons/fa6";
 const Lesson = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [categoryColors, setCategoryColors] = useState({
-    Math: "#ff6347",
-    Science: "#4682b4",
-    English: "#3cb371",
-  });
+
   const [notes, setNotes] = useState([
     {
       id: 1,
       subject: "Math",
-      title: "Introduction to Algebra",
+      topic: "Introduction to Algebra",
       date: "2024-09-13",
       className: "Math 101",
-      content: "This note covers the basic algebra principles...",
-      categoryColor: "#ff6347",
+      attachment: "algebra-intro.pdf",
+      text: "This note covers the basic algebra principles and theorems...",
+      status: "Approved",
     },
     {
       id: 2,
       subject: "Science",
-      title: "Introduction to Chemistry",
-      content: "This note introduces chemistry with a focus on...",
-      categoryColor: "#4682b4",
+      topic: "Introduction to Chemistry",
+      date: "2024-09-14",
+      className: "Science 201",
+      attachment: "chemistry-intro.pdf",
+      text: "This note introduces basic concepts of chemistry, including elements, compounds...",
+      status: "Pending",
     },
     {
       id: 3,
       subject: "English",
-      title: "Grammar Rules",
-      content: "In this lesson, we discuss the basic grammar rules...",
-      categoryColor: "#3cb371",
+      topic: "Grammar Rules",
+      date: "2024-09-15",
+      className: "English 301",
+      attachment: "grammar-rules.pdf",
+      text: "In this lesson, we discuss the rules of grammar, covering sentence structure, punctuation...",
+      status: "Approved",
     },
   ]);
 
@@ -46,7 +49,7 @@ const Lesson = () => {
   };
 
   const filteredNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(searchTerm.toLowerCase())
+    note.topic.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -68,32 +71,34 @@ const Lesson = () => {
         </button>
       </div>
 
-      <div className="lesson-list">
-        {filteredNotes.map((note) => (
-          <div
-            key={note.id}
-            className="lesson-item"
-            onClick={() => handleNoteClick(note)}
-          >
-            <div
-              className="lesson-category-circle"
-              style={{ backgroundColor: note.categoryColor }}
-            ></div>
-            <div className="lesson-details">
-              <h3
-                className="lesson-subject"
-                style={{ color: note.categoryColor }}
+      <table className="lesson-table">
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Class</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredNotes.map((note) => (
+            <tr key={note.id} onClick={() => handleNoteClick(note)}>
+              <td>{note.topic}</td>
+              <td>{note.className}</td>
+              <td>{note.subject}</td>
+              <td>{note.date}</td>
+              <td
+                className={`status-cell ${
+                  note.status === "Approved" ? "approved" : "pending"
+                }`}
               >
-                {note.subject}
-              </h3>
-              <p className="lesson-title">{note.title}</p>
-              <p className="lesson-preview">
-                {note.content.split(" ").slice(0, 25).join(" ")}...
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+                {note.status}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
