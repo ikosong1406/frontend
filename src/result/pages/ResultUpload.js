@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const ResultUpload = () => {
   const navigate = useNavigate();
 
-  const classes = ["Class 1", "Class 2", "Class 3"]; // Replace with data from backend
+  const classes = ["JSS 1", "JSS 2", "JSS 3", "SS 1", "SS 2", "SS 3"]; // Replace with data from backend
 
   return (
     <div className="result-upload-page">

@@ -83,7 +83,7 @@ function App() {
                 <Route path="lesson" element={<Lesson />} />
                 <Route path="newLesson/:id" element={<NewLesson />} />
                 <Route path="student" element={<Student />} />
-                <Route path="studentDetails/:id" element={<StudentDetails />} />
+                <Route path="studentDetails" element={<StudentDetails />} />
                 <Route path="timetable" element={<Timetable />} />
                 <Route path="uploadResult" element={<UploadResult />} />
                 <Route path="review" element={<Review />} />

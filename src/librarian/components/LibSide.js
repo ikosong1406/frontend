@@ -24,6 +24,7 @@ const LibSide = () => {
           end
         >
           <FaBook className="icon" />
+          <h3 className="label">Catalogue</h3>
         </NavLink>
         <NavLink
           to="/library/bookIssuing"
@@ -32,6 +33,7 @@ const LibSide = () => {
           end
         >
           <IoGrid className="icon" />
+          <h3 className="label">Issuing</h3>
         </NavLink>
       </div>
       <div className="sideDiv4">
