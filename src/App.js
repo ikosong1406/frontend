@@ -33,6 +33,7 @@ import ResultLayout from "./result/components/ResultLayout";
 import ResultUpload from "./result/pages/ResultUpload";
 import ClassDetail from "./result/pages/ClassDetails";
 import StudentResult from "./result/pages/StudentResult";
+import AccLayout from "./accountant/components/AccLayout";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -97,10 +98,10 @@ function App() {
                 <Route path="bookCatalogue" element={<BookCatalogue />} />
                 <Route path="bookIssuing" element={<BookIssuing />} />
               </Route>
-              {/* <Route path="/accountant" element={<ParentLayout />}>
-                <Route index element={<Result />} />
-                <Route path="result" element={<Result />} />
-              </Route> */}
+              <Route path="/accountant" element={<AccLayout />}>
+                {/* <Route index element={<Result />} /> */}
+                {/* <Route path="result" element={<Result />} /> */}
+              </Route>
               <Route path="/result" element={<ResultLayout />}>
                 <Route index element={<ResultUpload />} />
                 <Route path="resultUpload" element={<ResultUpload />} />
