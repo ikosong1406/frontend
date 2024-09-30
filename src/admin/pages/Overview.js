@@ -11,49 +11,30 @@ import students from "../../images/students.png";
 import teachers from "../../images/teachers.png";
 import income from "../../images/income.png";
 import expenses from "../../images/expenses.png";
-
-// Dummy data for overview
-const overviewData = {
-  students: 500,
-  teachers: 50,
-  totalRevenue: 1000000,
-  totalExpenses: 600000,
-  newAdmissions: 20,
-  events: 5,
-  schoolYear: "2023/2024",
-};
-
-const dummyEvents = {
-  "2024-09-13": [
-    {
-      title: "Sports Day",
-      description: "Annual sports competition",
-      color: "red",
-    },
-  ],
-  "2024-10-01": [
-    {
-      title: "Parent-Teacher Meeting",
-      description: "PTA meeting at 10 AM",
-      color: "blue",
-    },
-  ],
-};
+import studentData from "../../Api/Student.json"; // Adjust the path as necessary
+import teacherData from "../../Api/Teachers.json"; // Adjust the path as necessary
+import eventData from "../../Api/Events.json"; // Adjust the path as necessary
+import feesData from "../../Api/FeeCollection.json"; // Adjust the path as necessary
+import expenseData from "../../Api/SchoolExpenses.json"; // Adjust the path as necessary
 
 const Overview = () => {
   const navigate = useNavigate();
   const [greeting, setGreeting] = useState("");
-  const [value, setValue] = useState(new Date()); // Calendar selected date
-  const [hoveredDate, setHoveredDate] = useState(null);
-
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [events, setEvents] = useState(dummyEvents);
-  const [eventDetails, setEventDetails] = useState({
-    title: "",
-    description: "",
-    date: "",
-    color: "",
+  const [events, setEvents] = useState(eventData); // Use the imported events data
+  const [financialData, setFinancialData] = useState({
+    totalRevenue: 0,
+    totalExpenses: 0,
   });
+
+  useEffect(() => {
+    const totalRevenue = feesData.reduce((acc, fee) => acc + fee.amount, 0);
+    const totalExpenses = expenseData.reduce(
+      (acc, expense) => acc + expense.amount,
+      0
+    );
+
+    setFinancialData({ totalRevenue, totalExpenses });
+  }, []);
 
   useEffect(() => {
     const currentHour = new Date().getHours();
@@ -89,35 +70,17 @@ const Overview = () => {
     series: [
       {
         name: "Income",
-        data: [
-          100000, 120000, 140000, 160000, 180000, 200000, 220000, 240000,
-          260000,
-        ],
+        data: feesData.map((fee) => fee.amount), // Use the fee amounts for income
       },
       {
         name: "Expenses",
-        data: [
-          80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000,
-        ],
+        data: expenseData.map((expense) => expense.amount), // Use the expense amounts
       },
     ],
   };
 
   const handleAddStudent = () => {
     navigate("/admin/newStudent");
-  };
-
-  const handleAddEvent = () => {
-    navigate("/admin/add-event");
-  };
-
-  const handleDateClick = (info) => {
-    const dateStr = info.dateStr;
-    const eventsForDate = events[dateStr] || [];
-    setSelectedDate(dateStr);
-    setEventDetails(
-      eventsForDate[0] || { title: "", description: "", color: "" }
-    );
   };
 
   const allEvents = Object.keys(events).flatMap((date) =>
@@ -128,6 +91,9 @@ const Overview = () => {
     }))
   );
 
+  // Limit to the top 5 events
+  const topEvents = allEvents.slice(0, 4);
+
   return (
     <div className="overview-page">
       {/* Section 1: Greeting and Add Student Button */}
@@ -135,7 +101,7 @@ const Overview = () => {
         <h3>{greeting}</h3>
         <button onClick={handleAddStudent} className="btn-add-student">
           <IoPersonAdd />
-          <span> New Addmission</span>
+          <span> New Admission</span>
         </button>
       </div>
 
@@ -143,7 +109,7 @@ const Overview = () => {
       <div className="overview-cards">
         <div className="card">
           <div>
-            <h2>{overviewData.students}</h2>
+            <h2>{studentData.length}</h2>
             <p>Total Students</p>
           </div>
           <div style={{ alignSelf: "center" }}>
@@ -152,7 +118,7 @@ const Overview = () => {
         </div>
         <div className="card">
           <div>
-            <h2>{overviewData.teachers}</h2>
+            <h2>{teacherData.length}</h2>
             <p>Total Teachers</p>
           </div>
           <div style={{ alignSelf: "center" }}>
@@ -161,7 +127,7 @@ const Overview = () => {
         </div>
         <div className="card">
           <div>
-            <h2>{overviewData.totalRevenue}</h2>
+            <h2>{financialData.totalRevenue}</h2>
             <p>Total Revenue</p>
           </div>
           <div style={{ alignSelf: "center" }}>
@@ -170,7 +136,7 @@ const Overview = () => {
         </div>
         <div className="card">
           <div>
-            <h2>{overviewData.totalExpenses}</h2>
+            <h2>{financialData.totalExpenses}</h2>
             <p>Total Expenses</p>
           </div>
           <div style={{ alignSelf: "center" }}>
@@ -187,7 +153,6 @@ const Overview = () => {
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             events={allEvents}
-            dateClick={handleDateClick}
             height={"90vh"}
             width={"100vh"}
           />
@@ -196,7 +161,7 @@ const Overview = () => {
         <div className="events-section">
           <h3>Upcoming Events</h3>
           <div className="ul">
-            {allEvents.map((event, index) => (
+            {topEvents.map((event, index) => (
               <div key={index} className="event-item">
                 <div>
                   <h2
@@ -225,7 +190,7 @@ const Overview = () => {
         </div>
       </div>
 
-      {/* Section 4: School Calendar */}
+      {/* Section 4: Financial Chart */}
       <div className="financial-chart">
         <h3>School Finance</h3>
         <Chart

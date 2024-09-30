@@ -24,7 +24,7 @@ h2 {
 .form-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid gray;
   border-radius: 5px;
   font-size: 16px;
   color: #333;
@@ -39,11 +39,15 @@ h2 {
 .form-group {
   width: 100%;
   padding: 10px;
-  background-color: var(--background);
   color: var(--white);
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.btn-submit {
+  background-color: var(--background);
+  width: 15%;
 }

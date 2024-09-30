@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import "../styles/NewTeachers.css";
+import axios from "axios";
+import BackendApi from "../../Api/BackendApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Modal, Button } from "react-bootstrap";
 
 const NewTeachers = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     dateOfBirth: "",
     gender: "",
     department: "",
@@ -13,12 +18,15 @@ const NewTeachers = () => {
     email: "",
     residentialAddress: "",
     stateOfOrigin: "",
-    cvUpload: null,
-    certificateUpload: null,
   });
 
   const [cvPreview, setCvPreview] = useState(null); // CV file preview
   const [certificatePreview, setCertificatePreview] = useState(null); // Certificate file preview
+  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [teacherCredentials, setTeacherCredentials] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,14 +49,44 @@ const NewTeachers = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Form data with cvUpload and certificateUpload can now be processed and sent to the backend
+    const formDataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataToSend.append(key, formData[key]);
+    });
+
+    if (formData.cvUpload) formDataToSend.append("cv", formData.cvUpload);
+    if (formData.certificateUpload)
+      formDataToSend.append("certificateUpload", formData.certificateUpload);
+
+    try {
+      const response = await axios.post(
+        `${BackendApi}/newTeacher`,
+        formDataToSend,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      const { email, password } = response.data.data;
+
+      // Show modal with the email and password
+      setTeacherCredentials({ email, password });
+      setShowModal(true);
+
+      // Show success toast
+      toast.success("Staff created successfully");
+    } catch (error) {
+      // Show error toast
+      toast.error("Error creating staff");
+      console.error("Error:", error);
+    }
   };
 
   return (
     <div className="staff-container">
+      <ToastContainer />
       <div className="staff-form-wrapper">
         <h2>Create New Staff</h2>
         <form onSubmit={handleSubmit}>
@@ -58,8 +96,8 @@ const NewTeachers = () => {
                 <label>First Name</label>
                 <input
                   type="text"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="firstname"
+                  value={formData.firstname}
                   onChange={handleInputChange}
                   required
                 />
@@ -110,8 +148,8 @@ const NewTeachers = () => {
                 <label>Last Name</label>
                 <input
                   type="text"
-                  name="lastName"
-                  value={formData.lastName}
+                  name="lastname"
+                  value={formData.lastname}
                   onChange={handleInputChange}
                   required
                 />
@@ -132,7 +170,7 @@ const NewTeachers = () => {
               <div className="staff-form-group">
                 <label>Role</label>
                 <select
-                  name="gender"
+                  name="role"
                   value={formData.role}
                   onChange={handleInputChange}
                   required
@@ -239,6 +277,22 @@ const NewTeachers = () => {
           </div>
         </form>
       </div>
+
+      {/* Modal to show email and password */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Teacher Created</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Email: {teacherCredentials.email}</p>
+          <p>Password: {teacherCredentials.password}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

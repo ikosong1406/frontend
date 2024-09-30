@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "../styles/NewStudent.css";
+import axios from "axios";
+import BackendApi from "../../Api/BackendApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewStudent = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    middleName: "",
-    lastName: "",
+    firstname: "",
+    middlename: "",
+    lastname: "",
     dateOfBirth: "",
     gender: "",
     className: "",
@@ -13,8 +17,8 @@ const NewStudent = () => {
     stateOfOrigin: "",
     residentialAddress: "",
     parentName: "",
+    parentNumber: "",
     parentEmail: "",
-    parentPhone: "",
   });
 
   const [studentPhoto, setStudentPhoto] = useState(null); // State to store the selected photo
@@ -36,14 +40,74 @@ const NewStudent = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData, studentPhoto);
-    // Form data can now include the student photo for backend upload
+
+    // Create a FormData object to handle both text and file data
+    const data = new FormData();
+
+    // Append the form data to FormData
+    data.append("firstname", formData.firstname);
+    data.append("middlename", formData.middlename);
+    data.append("lastname", formData.lastname);
+    data.append("dateOfBirth", formData.dateOfBirth);
+    data.append("gender", formData.gender);
+    data.append("className", formData.className);
+    data.append("section", formData.section);
+    data.append("stateOfOrigin", formData.stateOfOrigin);
+    data.append("residentialAddress", formData.residentialAddress);
+    data.append("parentName", formData.parentName);
+    data.append("parentNumber", formData.parentNumber);
+    data.append("parentEmail", formData.parentEmail);
+
+    // Append the student photo if it exists
+    if (studentPhoto) {
+      data.append("studentPhoto", studentPhoto);
+    }
+
+    try {
+      // Send a POST request to the backend
+      const response = await axios.post(`${BackendApi}/newStudent`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data", // This tells the backend you're sending form data with a file
+        },
+      });
+
+      // Check if response is successful
+      if (response.status === 200) {
+        toast.success("Student created successfully!");
+
+        // Reset the form to default values after successful creation
+        setFormData({
+          firstname: "",
+          middlename: "",
+          lastname: "",
+          dateOfBirth: "",
+          gender: "",
+          className: "",
+          section: "",
+          stateOfOrigin: "",
+          residentialAddress: "",
+          parentName: "",
+          parentNumber: "",
+          parentEmail: "",
+        });
+
+        setStudentPhoto(null);
+        setPhotoPreview(null); // Reset the photo preview
+      } else {
+        toast.error("Failed to create student");
+      }
+    } catch (error) {
+      // Show error message if submission fails
+      toast.error("Failed to add student. Please try again.");
+      console.error("There was an error uploading the data:", error);
+    }
   };
 
   return (
     <div className="container">
+      <ToastContainer />
       <div className="form-wrapper">
         <h2 style={{ fontSize: 20, textAlign: "left" }}>Add New Student</h2>
         <form onSubmit={handleSubmit}>
@@ -53,8 +117,8 @@ const NewStudent = () => {
                 <label>First Name</label>
                 <input
                   type="text"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="firstname"
+                  value={formData.firstname}
                   onChange={handleInputChange}
                   required
                 />
@@ -64,8 +128,8 @@ const NewStudent = () => {
                 <label>Last Name</label>
                 <input
                   type="text"
-                  name="lastName"
-                  value={formData.lastName}
+                  name="lastname"
+                  value={formData.lastname}
                   onChange={handleInputChange}
                   required
                 />
@@ -118,7 +182,7 @@ const NewStudent = () => {
               <div className="form-group">
                 <label>Parent Email</label>
                 <input
-                  type="email"
+                  type="text"
                   name="parentEmail"
                   value={formData.parentEmail}
                   onChange={handleInputChange}
@@ -131,8 +195,8 @@ const NewStudent = () => {
                 <label>Middle Name</label>
                 <input
                   type="text"
-                  name="lastName"
-                  value={formData.middleName}
+                  name="middlename"
+                  value={formData.middlename}
                   onChange={handleInputChange}
                   required
                 />
@@ -183,9 +247,9 @@ const NewStudent = () => {
               <div className="form-group">
                 <label>Parent Phone</label>
                 <input
-                  type="tel"
-                  name="parentPhone"
-                  value={formData.parentPhone}
+                  type="text"
+                  name="parentNumber"
+                  value={formData.parentNumber}
                   onChange={handleInputChange}
                   required
                 />
@@ -197,7 +261,7 @@ const NewStudent = () => {
               className="photo-upload"
               onClick={() => document.getElementById("photoInput").click()}
               style={{
-                border: "2px dashed #ccc",
+                border: "2px dashed gray",
                 padding: "20px",
                 textAlign: "center",
                 cursor: "pointer",
@@ -217,7 +281,9 @@ const NewStudent = () => {
                   }}
                 />
               ) : (
-                <span>Click to upload student photo</span>
+                <span style={{ color: "gray" }}>
+                  Click to upload student photo
+                </span>
               )}
             </div>
             <input
