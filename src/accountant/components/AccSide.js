@@ -19,7 +19,7 @@ const AccSide = () => {
       </div>
       <div className="sideDiv3">
         <NavLink
-          to="/teacher"
+          to="/accountant"
           className={({ isActive }) => (isActive ? "active" : "")}
           onClick={() => setShowNav(false)}
           end
@@ -28,7 +28,7 @@ const AccSide = () => {
           <h3 className="label">Fees</h3>
         </NavLink>
         <NavLink
-          to="/teacher/timetable"
+          to="/accountant/schoolExpenses"
           className={({ isActive }) => (isActive ? "active" : "")}
           onClick={() => setShowNav(false)}
           end
