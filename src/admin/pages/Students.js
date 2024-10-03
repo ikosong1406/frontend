@@ -203,12 +203,12 @@ const Students = () => {
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img
                   src={selectedStudent.picture}
-                  alt={`${selectedStudent.firstName} ${selectedStudent.lastName}`}
+                  alt={`${selectedStudent.firstname} ${selectedStudent.lastname}`}
                   className="student-photo-large"
                 />
               </div>
               <h2>
-                {selectedStudent.firstName} {selectedStudent.lastName}
+                {selectedStudent.firstname} {selectedStudent.lastname}
               </h2>
               <h3 className="class">{selectedStudent.className}</h3>
 

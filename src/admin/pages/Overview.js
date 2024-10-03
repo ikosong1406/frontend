@@ -12,7 +12,7 @@ import income from "../../images/income.png";
 import expenses from "../../images/expenses.png";
 import studentData from "../../Api/Student"; // Adjust the path as necessary
 import teacherData from "../../Api/Teachers.json"; // Adjust the path as necessary
-import eventData from "../../Api/Events.json"; // Adjust the path as necessary
+import eventData from "../../Api/Events";
 import feesData from "../../Api/FeeCollection.json"; // Adjust the path as necessary
 import expenseData from "../../Api/SchoolExpenses.json"; // Adjust the path as necessary
 
@@ -20,7 +20,7 @@ const Overview = () => {
   const navigate = useNavigate();
   const [student, setStudent] = useState([]);
   const [greeting, setGreeting] = useState("");
-  const [events, setEvents] = useState(eventData); // Use the imported events data
+  const [events, setEvents] = useState([]); // Use the imported events data
   const [financialData, setFinancialData] = useState({
     totalRevenue: 0,
     totalExpenses: 0,
@@ -41,6 +41,21 @@ const Overview = () => {
     };
 
     loadStudents();
+  }, []);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const data = await eventData(); // Fetch data from backend
+        setEvents(data); // Store data in state
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch students");
+        setIsLoading(false);
+      }
+    };
+
+    loadEvents();
   }, []);
 
   useEffect(() => {
@@ -100,13 +115,17 @@ const Overview = () => {
     navigate("/admin/newStudent");
   };
 
-  const allEvents = Object.keys(events).flatMap((date) =>
-    events[date].map((event) => ({
-      date,
-      title: event.title,
-      color: event.color,
-    }))
-  );
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
+  };
+
+  const allEvents = events.map((event) => ({
+    _id: event._id,
+    title: event.title,
+    date: formatDate(event.date),
+    color: event.color,
+  }));
 
   // Limit to the top 5 events
   const topEvents = allEvents.slice(0, 4);

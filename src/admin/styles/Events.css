@@ -106,6 +106,7 @@
   border-radius: 10px;
   padding: 20px;
   width: 400px;
+  height: 420px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   animation: slideIn 0.3s ease-out;
@@ -144,6 +145,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  width: 90%;
 }
 
 .modal-content button[type="submit"]:hover {
@@ -157,7 +159,7 @@
   cursor: pointer;
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 25px;
 }
 
 .modal-content button:hover {

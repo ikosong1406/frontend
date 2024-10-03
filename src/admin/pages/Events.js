@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import "react-calendar/dist/Calendar.css";
 import "../styles/Events.css";
 import { FaPlus } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
-import eventData from "../../Api/Events.json"; // Import JSON file
+import eventData from "../../Api/Events";
+import axios from "axios";
+import BackendApi from "../../Api/BackendApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EventsPage = () => {
-  const [events, setEvents] = useState(eventData); // Use imported eventData
+  const [events, setEvents] = useState([]); // Use imported eventData
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventDetails, setEventDetails] = useState({
     title: "",
@@ -16,6 +20,23 @@ const EventsPage = () => {
     date: "",
     color: "",
   });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const data = await eventData(); // Fetch data from backend
+        setEvents(data); // Store data in state
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch students");
+        setIsLoading(false);
+      }
+    };
+
+    loadEvents();
+  }, []);
 
   const handleAddEventClick = () => {
     setIsModalOpen(true); // Open modal to add an event
@@ -25,49 +46,71 @@ const EventsPage = () => {
     setIsModalOpen(false); // Close modal
   };
 
-  const handleEventSubmit = (e) => {
+  const handleEventSubmit = async (e) => {
     e.preventDefault();
     const newEvent = {
       title: eventDetails.title,
       description: eventDetails.description,
       color: eventDetails.color,
+      date: eventDetails.date,
     };
-    setEvents((prevEvents) => ({
-      ...prevEvents,
-      [eventDetails.date]: prevEvents[eventDetails.date]
-        ? [...prevEvents[eventDetails.date], newEvent]
-        : [newEvent],
-    }));
-    handleCloseModal();
+
+    try {
+      // Send the new event details to the backend using Axios
+      const response = await axios.post(`${BackendApi}/newEvent`, newEvent);
+
+      if (response.status === 200) {
+        // Update events state locally only after successful backend response
+        toast.success("Event added successfully");
+      } else {
+        toast.error("Error adding event");
+      }
+    } catch (error) {
+      console.error("Error sending event to backend:", error);
+      toast.error("Failed to add event.");
+    }
+
+    handleCloseModal(); // Close the modal after submission
   };
 
-  const handleDeleteEvent = (eventDate, eventIndex) => {
+  const handleDeleteEvent = async (eventId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this event?"
     );
     if (confirmDelete) {
-      setEvents((prevEvents) => {
-        const updatedEvents = { ...prevEvents };
-        updatedEvents[eventDate].splice(eventIndex, 1);
-        // If no events left on the date, remove the date from the object
-        if (updatedEvents[eventDate].length === 0) {
-          delete updatedEvents[eventDate];
+      const data = {
+        id: eventId,
+      };
+
+      try {
+        const response = await axios.post(`${BackendApi}/deleteEvent`, data);
+        if (response.status === 200) {
+          toast.success("Event deleted successfully");
+        } else {
+          toast.error("Error deleting event");
         }
-        return updatedEvents;
-      });
+      } catch (error) {
+        console.error("Error deleting event:", error);
+        toast.error("Failed to delete event.");
+      }
     }
   };
 
-  const allEvents = Object.keys(events).flatMap((date) =>
-    events[date].map((event) => ({
-      date,
-      title: event.title,
-      color: event.color,
-    }))
-  );
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
+  };
+
+  const allEvents = events.map((event) => ({
+    _id: event._id,
+    title: event.title,
+    date: formatDate(event.date),
+    color: event.color,
+  }));
 
   return (
     <div className="events-page">
+      <ToastContainer />
       {/* Header with title and add event button */}
       <div className="headers">
         <h2>Events</h2>
@@ -96,8 +139,8 @@ const EventsPage = () => {
         <div className="right-section">
           <h2>Events List</h2>
           <div className="all-events-list">
-            {allEvents.map((event, index) => (
-              <div key={index} className="event-item">
+            {allEvents.map((event) => (
+              <div key={event._id} className="event-item">
                 <div>
                   <h2 className="event-date" style={{ color: event.color }}>
                     {event.date}
@@ -118,7 +161,7 @@ const EventsPage = () => {
                   <FaTrash
                     className="delete-icon"
                     style={{ cursor: "pointer", color: "red" }}
-                    onClick={() => handleDeleteEvent(event.date, event.index)}
+                    onClick={() => handleDeleteEvent(event._id)}
                   />
                 </div>
               </div>
@@ -131,8 +174,17 @@ const EventsPage = () => {
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Add Event</h2>
-            <form onSubmit={handleEventSubmit}>
+            <div style={{ display: "flex" }}>
+              <h2>Add Event</h2>
+              <button
+                onClick={handleCloseModal}
+                style={{ color: "black", fontWeight: "800", fontSize: 20 }}
+              >
+                X
+              </button>
+            </div>
+
+            <form onSubmit={handleEventSubmit} style={{ display: "block" }}>
               <label>
                 Event Title:
                 <input
@@ -180,9 +232,10 @@ const EventsPage = () => {
                   required
                 />
               </label>
-              <button type="submit">Add Event</button>
+              <button type="submit" style={{ marginTop: 370 }}>
+                Add Event
+              </button>
             </form>
-            <button onClick={handleCloseModal}>X</button>
           </div>
         </div>
       )}
