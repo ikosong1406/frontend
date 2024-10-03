@@ -94,7 +94,7 @@ const NewStudent = () => {
         });
 
         setStudentPhoto(null);
-        setPhotoPreview(null); // Reset the photo preview
+        setPhotoPreview(null);
       } else {
         toast.error("Failed to create student");
       }
@@ -265,7 +265,7 @@ const NewStudent = () => {
                 padding: "20px",
                 textAlign: "center",
                 cursor: "pointer",
-                height: 60,
+                height: 100,
                 marginTop: 20,
               }}
             >

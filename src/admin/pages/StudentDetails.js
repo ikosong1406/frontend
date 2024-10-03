@@ -103,6 +103,11 @@ const StudentDetails = () => {
     ));
   };
 
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
+  };
+
   return (
     <div className="student-details-page">
       <div className="student-details-container">
@@ -114,11 +119,11 @@ const StudentDetails = () => {
             className="profile-pic"
           />
           <div style={{ width: "80%" }}>
-            <h2 style={{ color: "black", textAlign: "left" }}>
+            <h2 style={{ color: "black", textAlign: "left", marginTop: 30 }}>
               {student.firstname} {student.lastname}
             </h2>
             <button className="save-buttons">
-              <FaEdit /> <span> Save Profile</span>
+              <FaEdit /> <span> Edit Profile</span>
             </button>
             <button className="delete-buttons">
               <FaTrashAlt /> <span> Delete Profile</span>
@@ -185,7 +190,7 @@ const StudentDetails = () => {
                     <div style={{ marginTop: 30 }}>
                       <h3>Date of Birth</h3>
                       <p className="class" style={{ textAlign: "left" }}>
-                        {student.dateOfBirth}
+                        {formatDate(student.dateOfBirth)}
                       </p>
                     </div>
                     <div style={{ marginTop: 30 }}>

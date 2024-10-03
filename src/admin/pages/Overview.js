@@ -11,7 +11,7 @@ import teachers from "../../images/teachers.png";
 import income from "../../images/income.png";
 import expenses from "../../images/expenses.png";
 import studentData from "../../Api/Student"; // Adjust the path as necessary
-import teacherData from "../../Api/Teachers.json"; // Adjust the path as necessary
+import teacherData from "../../Api/Teachers"; // Adjust the path as necessary
 import eventData from "../../Api/Events";
 import feesData from "../../Api/FeeCollection.json"; // Adjust the path as necessary
 import expenseData from "../../Api/SchoolExpenses.json"; // Adjust the path as necessary
@@ -19,6 +19,7 @@ import expenseData from "../../Api/SchoolExpenses.json"; // Adjust the path as n
 const Overview = () => {
   const navigate = useNavigate();
   const [student, setStudent] = useState([]);
+  const [staff, setStaff] = useState([]);
   const [greeting, setGreeting] = useState("");
   const [events, setEvents] = useState([]); // Use the imported events data
   const [financialData, setFinancialData] = useState({
@@ -56,6 +57,21 @@ const Overview = () => {
     };
 
     loadEvents();
+  }, []);
+
+  useEffect(() => {
+    const loadStaffs = async () => {
+      try {
+        const data = await teacherData(); // Fetch data from backend
+        setStaff(data); // Store data in state
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch students");
+        setIsLoading(false);
+      }
+    };
+
+    loadStaffs();
   }, []);
 
   useEffect(() => {
@@ -154,7 +170,7 @@ const Overview = () => {
         </div>
         <div className="card">
           <div>
-            <h2>{teacherData.length}</h2>
+            <h2>{staff.length}</h2>
             <p>Total Teachers</p>
           </div>
           <div style={{ alignSelf: "center" }}>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Students.css";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 import { FaPlus } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import studentsData from "../../Api/Teachers.json";
+import staffData from "../../Api/Teachers";
 
 // Function to calculate age from DOB
 const calculateAge = (dob) => {
@@ -22,8 +22,10 @@ const calculateAge = (dob) => {
 };
 
 const Students = () => {
+  const navigate = useNavigate();
+  const [staff, setStaff] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [filteredStudents, setFilteredStudents] = useState(studentsData);
+  const [filteredStudents, setFilteredStudents] = useState(staff);
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilter, setShowFilter] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
@@ -31,18 +33,32 @@ const Students = () => {
     section: "",
     className: "",
   });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const loadStaff = async () => {
+      try {
+        const data = await staffData(); // Fetch data from backend
+        setStaff(data); // Store data in state
+        setFilteredStudents(data); // Set filtered students initially
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch students");
+        setIsLoading(false);
+      }
+    };
+
+    loadStaff();
+  }, []);
 
   // Handle search input
   const handleSearch = (e) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchTerm(searchValue);
 
-    const filtered = studentsData.filter((student) =>
-      `${studentsData.firstName} ${studentsData.lastName}`
-        .toLowerCase()
-        .includes(searchValue)
+    const filtered = staff.filter((staff) =>
+      `${staff.firstName} ${staff.lastName}`.toLowerCase().includes(searchValue)
     );
     setFilteredStudents(filtered);
   };
@@ -50,6 +66,11 @@ const Students = () => {
   // Handle filter toggle
   const toggleFilter = () => {
     setShowFilter(!showFilter);
+  };
+
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
   };
 
   return (
@@ -141,33 +162,39 @@ const Students = () => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Class</th>
+                <th>Department</th>
                 <th>Age</th>
                 <th>Gender</th>
               </tr>
             </thead>
             <tbody>
-              {filteredStudents.map((student) => (
-                <tr
-                  key={student.id}
-                  onClick={() => setSelectedStudent(student)}
-                >
-                  <td style={{ display: "flex" }}>
-                    <input
-                      type="checkbox"
-                      checked={selectedStudent?.id === student.id}
-                      readOnly
-                    />
-                    <img src={student.profilePhoto} alt={student.firstName} />
-                    <h3 style={{ fontWeight: "600", marginLeft: 10 }}>
-                      {student.firstName} {student.lastName}
-                    </h3>
-                  </td>
-                  <td>{student.department}</td>
-                  <td>{calculateAge(student.dateOfBirth)}</td>
-                  <td>{student.gender}</td>
+              {filteredStudents.length > 0 ? (
+                filteredStudents.map((student) => (
+                  <tr
+                    key={student._id}
+                    onClick={() => setSelectedStudent(student)}
+                  >
+                    <td style={{ display: "flex" }}>
+                      <input
+                        type="checkbox"
+                        checked={selectedStudent?._id === student._id}
+                        readOnly
+                      />
+                      <img src={student.profilePhoto} alt={student.firstName} />
+                      <h3 style={{ fontWeight: "600", marginLeft: 10 }}>
+                        {student.firstname} {student.lastname}
+                      </h3>
+                    </td>
+                    <td>{student.department}</td>
+                    <td>{calculateAge(student.dateOfBirth)}</td>
+                    <td>{student.gender}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No staff found</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -175,16 +202,16 @@ const Students = () => {
         <div className="student-details">
           {selectedStudent ? (
             <div>
-              <h3>ID: {selectedStudent.id}</h3>
+              <h3>ID: {selectedStudent._id}</h3>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img
-                  src={selectedStudent.photo}
-                  alt={`${selectedStudent.firstName} ${selectedStudent.lastName}`}
+                  src={selectedStudent.profilePhoto}
+                  alt={`${selectedStudent.firstname} ${selectedStudent.lastname}`}
                   className="student-photo-large"
                 />
               </div>
               <h2>
-                {selectedStudent.firstName} {selectedStudent.lastName}
+                {selectedStudent.firstname} {selectedStudent.lastname}
               </h2>
               <h3 className="class">{selectedStudent.className}</h3>
 
@@ -220,7 +247,7 @@ const Students = () => {
                 <div>
                   <h3>Date of Birth</h3>
                   <p className="class" style={{ textAlign: "left" }}>
-                    {selectedStudent.dateOfBirth}
+                    {formatDate(selectedStudent.dateOfBirth)}
                   </p>
                 </div>
                 <div>

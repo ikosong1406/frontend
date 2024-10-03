@@ -66,6 +66,11 @@ const Students = () => {
     setShowFilter(!showFilter);
   };
 
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
+  };
+
   return (
     <div className="students-container">
       <div className="page-header">
@@ -244,7 +249,7 @@ const Students = () => {
                 <div>
                   <h3>Date of Birth</h3>
                   <p className="class" style={{ textAlign: "left" }}>
-                    {selectedStudent.dateOfBirth}
+                    {formatDate(selectedStudent.dateOfBirth)}
                   </p>
                 </div>
                 <div>
