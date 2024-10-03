@@ -109,13 +109,13 @@ const StudentDetails = () => {
         {/* Left Section - Profile Information */}
         <div className="profile-section">
           <img
-            src={student.photo}
+            src={student.picture}
             alt={`${student.firstName} ${student.lastName}`}
             className="profile-pic"
           />
           <div style={{ width: "80%" }}>
             <h2 style={{ color: "black", textAlign: "left" }}>
-              {student.firstName} {student.lastName}
+              {student.firstname} {student.lastname}
             </h2>
             <button className="save-buttons">
               <FaEdit /> <span> Save Profile</span>
@@ -179,7 +179,7 @@ const StudentDetails = () => {
                     <div>
                       <h3>Class</h3>
                       <p className="class" style={{ textAlign: "left" }}>
-                        {student.class}
+                        {student.className}
                       </p>
                     </div>
                     <div style={{ marginTop: 30 }}>

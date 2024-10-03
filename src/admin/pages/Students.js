@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Students.css";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 import { FaPlus } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
-
-// Import the students data from the JSON file
-import studentsData from "../../Api/Student.json"; // Path to your JSON file
+import studentData from "../../Api/Student";
 
 // Function to calculate age from DOB
 const calculateAge = (dob) => {
@@ -24,8 +22,10 @@ const calculateAge = (dob) => {
 };
 
 const Students = () => {
+  const navigate = useNavigate();
+  const [student, setStudent] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [filteredStudents, setFilteredStudents] = useState(studentsData);
+  const [filteredStudents, setFilteredStudents] = useState(student);
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilter, setShowFilter] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
@@ -33,21 +33,33 @@ const Students = () => {
     section: "",
     className: "",
   });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const loadStudents = async () => {
+      try {
+        const data = await studentData(); // Fetch data from backend
+        setStudent(data); // Store data in state
+        setFilteredStudents(data); // Set filtered students to initial data
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch students");
+        setIsLoading(false);
+      }
+    };
 
-  // Handle search input
-  const handleSearch = (e) => {
-    const searchValue = e.target.value.toLowerCase();
-    setSearchTerm(searchValue);
+    loadStudents();
+  }, []);
 
-    const filtered = studentsData.filter((student) =>
-      `${student.firstName} ${student.lastName}`
+  useEffect(() => {
+    const filtered = student.filter((student) =>
+      `${student.firstname} ${student.lastname}`
         .toLowerCase()
-        .includes(searchValue)
+        .includes(searchTerm.toLowerCase())
     );
     setFilteredStudents(filtered);
-  };
+  }, [searchTerm, student]); // Update filtered students when search term or student data changes
 
   // Handle filter toggle
   const toggleFilter = () => {
@@ -131,7 +143,7 @@ const Students = () => {
           type="text"
           placeholder="Search students..."
           value={searchTerm}
-          onChange={handleSearch}
+          // onChange={handleSearch}
           className="search-bar"
         />
       </div>
@@ -153,22 +165,24 @@ const Students = () => {
               filteredStudents.length > 0 ? (
                 filteredStudents.map((student) => (
                   <tr
-                    key={student.id}
-                    onClick={() => setSelectedStudent(student)}
+                    key={student._id}
+                    onClick={() => setSelectedStudent(student)} // Set the selected student on click
                   >
                     <td style={{ display: "flex" }}>
                       <input
                         type="checkbox"
-                        checked={selectedStudent?.id === student.id} // Only check the selected student
+                        checked={selectedStudent?._id === student._id} // Compare _id correctly
                         readOnly
                       />
-                      <img src={student.photo} alt={student.firstName} />
+                      <img src={student.picture} alt={student.firstname} />{" "}
+                      {/* Use correct prop */}
                       <h3 style={{ fontWeight: "600", marginLeft: 10 }}>
-                        {student.firstName} {student.lastName}
+                        {student.firstname} {student.lastname}{" "}
+                        {/* Correct prop names */}
                       </h3>
                     </td>
                     <td>{student.section}</td>
-                    <td>{student.class}</td>
+                    <td>{student.className}</td> {/* Use className prop */}
                     <td>{calculateAge(student.dateOfBirth)}</td>
                     <td>{student.gender}</td>
                   </tr>
@@ -185,10 +199,10 @@ const Students = () => {
         <div className="student-details">
           {selectedStudent ? (
             <div>
-              <h3>ID: {selectedStudent.id}</h3>
+              <h3>ID: {selectedStudent._id}</h3>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img
-                  src={selectedStudent.photo}
+                  src={selectedStudent.picture}
                   alt={`${selectedStudent.firstName} ${selectedStudent.lastName}`}
                   className="student-photo-large"
                 />

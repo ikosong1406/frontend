@@ -6,12 +6,11 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import "react-calendar/dist/Calendar.css";
 import "../styles/Overview.css";
 import { IoPersonAdd } from "react-icons/io5";
-import { FaPlus } from "react-icons/fa6";
 import students from "../../images/students.png";
 import teachers from "../../images/teachers.png";
 import income from "../../images/income.png";
 import expenses from "../../images/expenses.png";
-import studentData from "../../Api/Student.json"; // Adjust the path as necessary
+import studentData from "../../Api/Student"; // Adjust the path as necessary
 import teacherData from "../../Api/Teachers.json"; // Adjust the path as necessary
 import eventData from "../../Api/Events.json"; // Adjust the path as necessary
 import feesData from "../../Api/FeeCollection.json"; // Adjust the path as necessary
@@ -19,12 +18,30 @@ import expenseData from "../../Api/SchoolExpenses.json"; // Adjust the path as n
 
 const Overview = () => {
   const navigate = useNavigate();
+  const [student, setStudent] = useState([]);
   const [greeting, setGreeting] = useState("");
   const [events, setEvents] = useState(eventData); // Use the imported events data
   const [financialData, setFinancialData] = useState({
     totalRevenue: 0,
     totalExpenses: 0,
   });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadStudents = async () => {
+      try {
+        const data = await studentData(); // Fetch data from backend
+        setStudent(data); // Store data in state
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch products");
+        setIsLoading(false);
+      }
+    };
+
+    loadStudents();
+  }, []);
 
   useEffect(() => {
     const totalRevenue = feesData.reduce((acc, fee) => acc + fee.amount, 0);
@@ -109,7 +126,7 @@ const Overview = () => {
       <div className="overview-cards">
         <div className="card">
           <div>
-            <h2>{studentData.length}</h2>
+            <h2>{student.length}</h2>
             <p>Total Students</p>
           </div>
           <div style={{ alignSelf: "center" }}>
