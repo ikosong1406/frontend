@@ -27,3 +27,8 @@
 .upload-result-button:hover {
   background-color: #45a049; /* Darker green */
 }
+
+td input {
+  padding: 10px;
+  border-radius: 5px;
+}

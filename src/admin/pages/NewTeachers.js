@@ -4,7 +4,6 @@ import axios from "axios";
 import BackendApi from "../../Api/BackendApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Modal, Button } from "react-bootstrap";
 
 const NewTeachers = () => {
   const [formData, setFormData] = useState({
