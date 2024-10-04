@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FaUpload } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // Function to calculate age from DOB
 const calculateAge = (dob) => {
@@ -18,6 +19,7 @@ const calculateAge = (dob) => {
 };
 
 const StudentDetails = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { student } = location.state || {}; // Retrieve the student data
   const [activeTab, setActiveTab] = useState("studentData");
@@ -122,7 +124,14 @@ const StudentDetails = () => {
             >
               {student.firstname} {student.lastname}
             </h2>
-            <button className="save-buttons">
+            <button
+              className="save-buttons"
+              onClick={() =>
+                navigate(`/resultUpload/studentResult`, {
+                  state: { student },
+                })
+              }
+            >
               <FaUpload /> <span> Upload Result</span>
             </button>
           </div>

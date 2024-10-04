@@ -23,7 +23,6 @@ import Student from "./teachers/pages/Student";
 import StudentDetails from "./teachers/pages/StudentDetails";
 import Timetable from "./teachers/pages/Timetable";
 import Review from "./teachers/pages/Review";
-import UploadResult from "./teachers/pages/UploadResult";
 import LibLayout from "./librarian/components/LibLayout";
 import BookCatalogue from "./librarian/pages/BookCatalogue";
 import BookIssuing from "./librarian/pages/BookIssuing";
@@ -89,7 +88,6 @@ function App() {
                 <Route path="student" element={<Student />} />
                 <Route path="studentDetails" element={<StudentDetails />} />
                 <Route path="timetable" element={<Timetable />} />
-                <Route path="uploadResult" element={<UploadResult />} />
                 <Route path="review" element={<Review />} />
               </Route>
               <Route path="/result" element={<ParentLayout />}>
