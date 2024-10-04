@@ -68,9 +68,11 @@
 }
 
 .sideDiv4 {
-  margin-top: 130px;
+  margin-top: 50px;
   display: flex;
   padding: 10px;
+  text-decoration: none;
+  width: 100%;
 }
 
 .sideDiv41 {

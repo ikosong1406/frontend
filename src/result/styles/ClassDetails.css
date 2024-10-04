@@ -1,0 +1,29 @@
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table th,
+.student-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.student-table img.student-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.upload-result-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.upload-result-button:hover {
+  background-color: #45a049; /* Darker green */
+}

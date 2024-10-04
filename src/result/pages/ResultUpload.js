@@ -4,7 +4,18 @@ import { useNavigate } from "react-router-dom";
 const ResultUpload = () => {
   const navigate = useNavigate();
 
-  const classes = ["JSS 1", "JSS 2", "JSS 3", "SS 1", "SS 2", "SS 3"]; // Replace with data from backend
+  const classes = [
+    "Junior Secondary 1",
+    "Junior Secondary 2",
+    "Junior Secondary 3",
+    "Senior Secondary 1",
+    "Senior Secondary 2",
+    "Senior Secondary 3",
+  ]; // Replace with data from backend
+
+  const handleClassClick = (className) => {
+    navigate("/resultUpload/classDetail", { state: { className } }); // Pass the class name using state
+  };
 
   return (
     <div className="result-upload-page">
@@ -14,7 +25,7 @@ const ResultUpload = () => {
           <div
             key={index}
             className="class-card"
-            onClick={() => navigate(`/result/classDetail`)}
+            onClick={() => handleClassClick(className)}
           >
             {className}
           </div>

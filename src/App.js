@@ -91,7 +91,7 @@ function App() {
                 <Route path="uploadResult" element={<UploadResult />} />
                 <Route path="review" element={<Review />} />
               </Route>
-              <Route path="/students" element={<ParentLayout />}>
+              <Route path="/result" element={<ParentLayout />}>
                 <Route index element={<Result />} />
                 <Route path="result" element={<Result />} />
               </Route>
@@ -105,7 +105,7 @@ function App() {
                 <Route path="feesCollection" element={<FeesCollection />} />
                 <Route path="schoolExpenses" element={<SchoolExpenses />} />
               </Route>
-              <Route path="/result" element={<ResultLayout />}>
+              <Route path="/resultUpload" element={<ResultLayout />}>
                 <Route index element={<ResultUpload />} />
                 <Route path="resultUpload" element={<ResultUpload />} />
                 <Route path="classDetail" element={<ClassDetail />} />
