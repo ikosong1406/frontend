@@ -36,6 +36,7 @@ import StudentResult from "./result/pages/StudentResult";
 import AccLayout from "./accountant/components/AccLayout";
 import FeesCollection from "./accountant/pages/FeesCollection";
 import SchoolExpenses from "./accountant/pages/SchoolExpenses";
+import FeePayment from "./accountant/pages/FeePayment";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -104,6 +105,7 @@ function App() {
                 <Route index element={<FeesCollection />} />
                 <Route path="feesCollection" element={<FeesCollection />} />
                 <Route path="schoolExpenses" element={<SchoolExpenses />} />
+                <Route path="feePayment" element={<FeePayment />} />
               </Route>
               <Route path="/resultUpload" element={<ResultLayout />}>
                 <Route index element={<ResultUpload />} />

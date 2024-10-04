@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactApexChart from "react-apexcharts";
 import feesCollectionData from "../../Api/FeeCollection.json"; // Import fees collection JSON
 // import "../styles/Fees.css";
 import { IoAnalytics } from "react-icons/io5";
 
 const FeesCollection = () => {
+  const navigate = useNavigate();
   const [feesData, setFeesData] = useState([]); // Fees data for the line chart
 
   useEffect(() => {
@@ -30,10 +32,24 @@ const FeesCollection = () => {
     },
   };
 
+  const handleNewFeeClick = () => {
+    navigate("/accountant/feePayment"); // Redirect to fee payment page
+  };
+
   return (
     <div className="fees-page">
-      <h1>Fees Collection</h1>
-      <button className="new-fee-btn">+ New Fee</button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: 20,
+        }}
+      >
+        <h1>Fees Collection</h1>
+        <button className="new-fee-btn" onClick={handleNewFeeClick}>
+          + New Fee
+        </button>
+      </div>
       <div className="fees-collection">
         <div className="fees-overview">
           {/* Fees Paid Line Chart */}

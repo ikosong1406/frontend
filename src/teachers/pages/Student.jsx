@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 import { IoIosArrowDown } from "react-icons/io";
-
-// Import the students data from the JSON file
-import studentsData from "../../Api/Student.json"; // Path to your JSON file
+import studentData from "../../Api/Student";
+import axios from "axios";
+import BackendApi from "../../Api/BackendApi";
+import { getUserToken } from "../../Api/storage";
 
 // Function to calculate age from DOB
 const calculateAge = (dob) => {
@@ -22,20 +23,80 @@ const calculateAge = (dob) => {
 };
 
 const Students = () => {
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState([]);
+  const [token, setToken] = useState(null);
+  const [student, setStudent] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilter, setShowFilter] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
+  const fetchData = async () => {
+    try {
+      const userToken = await getUserToken();
+      setToken(userToken);
+      // console.log(token);
+    } catch (error) {
+      console.error("Error retrieving token:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const getData = async () => {
+    const data = { token };
+    try {
+      const response = await axios.post(`${BackendApi}/userdata`, data);
+      const fetchedData = response.data.data;
+
+      setUserData(fetchedData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      const interval = setInterval(() => {
+        setRefreshing(true);
+        getData();
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const loadStudents = async () => {
+      try {
+        const data = await studentData(); // Fetch data from backend
+        setStudent(data); // Store data in state
+        setFilteredStudents(data); // Set filtered students to initial data
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch students");
+        setIsLoading(false);
+      }
+    };
+
+    loadStudents();
+  }, []);
 
   // Assume form teacher's class is "Primary 6"
   const formTeacherClass = "Primary 5";
 
   // Filter students based on form teacher's class
   useEffect(() => {
-    const filtered = studentsData.filter(
-      (student) => student.class === formTeacherClass
+    const filtered = student.filter(
+      (students) => students.className === userData.form
     );
     setFilteredStudents(filtered);
   }, []); // Runs once when component mounts
@@ -45,12 +106,17 @@ const Students = () => {
     const searchValue = e.target.value.toLowerCase();
     setSearchTerm(searchValue);
 
-    const filtered = studentsData.filter((student) =>
-      `${student.firstName} ${student.lastName}`
+    const filtered = student.filter((students) =>
+      `${students.firstName} ${students.lastName}`
         .toLowerCase()
         .includes(searchValue)
     );
     setFilteredStudents(filtered);
+  };
+
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
   };
 
   return (
@@ -101,16 +167,16 @@ const Students = () => {
                     <td style={{ display: "flex" }}>
                       <input
                         type="checkbox"
-                        checked={selectedStudent?.id === student.id} // Only check the selected student
+                        checked={selectedStudent?._id === student._id} // Only check the selected student
                         readOnly
                       />
-                      <img src={student.photo} alt={student.firstName} />
+                      <img src={student.picture} alt={student.firstName} />
                       <h3 style={{ fontWeight: "600", marginLeft: 10 }}>
-                        {student.firstName} {student.lastName}
+                        {student.firstname} {student.lastname}
                       </h3>
                     </td>
                     <td>{student.section}</td>
-                    <td>{student.class}</td>
+                    <td>{student.className}</td>
                     <td>{calculateAge(student.dateOfBirth)}</td>
                     <td>{student.gender}</td>
                   </tr>
@@ -127,16 +193,16 @@ const Students = () => {
         <div className="student-details">
           {selectedStudent ? (
             <div>
-              <h3>ID: {selectedStudent.id}</h3>
+              <h3>ID: {selectedStudent._id}</h3>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img
-                  src={selectedStudent.photo}
-                  alt={`${selectedStudent.firstName} ${selectedStudent.lastName}`}
+                  src={selectedStudent.picture}
+                  alt={`${selectedStudent.firstname} ${selectedStudent.lastname}`}
                   className="student-photo-large"
                 />
               </div>
               <h2>
-                {selectedStudent.firstName} {selectedStudent.lastName}
+                {selectedStudent.firstname} {selectedStudent.lastname}
               </h2>
               <h3 className="class">{selectedStudent.className}</h3>
 
@@ -172,7 +238,7 @@ const Students = () => {
                 <div>
                   <h3>Date of Birth</h3>
                   <p className="class" style={{ textAlign: "left" }}>
-                    {selectedStudent.dateOfBirth}
+                    {formatDate(selectedStudent.dateOfBirth)}
                   </p>
                 </div>
                 <div>
@@ -197,17 +263,19 @@ const Students = () => {
                   {selectedStudent.residentialAddress}
                 </p>
               </div>
-              <button
-                className="more-details"
-                onClick={() =>
-                  navigate(`/teacher/studentDetails`, {
-                    state: { student: selectedStudent },
-                  })
-                }
-              >
-                See More
-                <IoIosArrowDown style={{ fontSize: 15, marginLeft: 10 }} />
-              </button>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <button
+                  className="see-more-button"
+                  onClick={() =>
+                    navigate(`/teacher/studentDetails`, {
+                      state: { student: selectedStudent },
+                    })
+                  }
+                >
+                  See More
+                  <IoIosArrowDown style={{ fontSize: 15, marginLeft: 10 }} />
+                </button>
+              </div>
             </div>
           ) : (
             <div className="no-student">

@@ -101,13 +101,18 @@ const StudentDetails = () => {
     ));
   };
 
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
+  };
+
   return (
     <div className="student-details-page">
       <div className="student-details-container">
         {/* Left Section - Profile Information */}
         <div className="profile-section">
           <img
-            src={student.photo}
+            src={student.picture}
             alt={`${student.firstName} ${student.lastName}`}
             className="profile-pic"
           />
@@ -115,7 +120,7 @@ const StudentDetails = () => {
             <h2
               style={{ color: "black", textAlign: "left", alignSelf: "center" }}
             >
-              {student.firstName} {student.lastName}
+              {student.firstname} {student.lastname}
             </h2>
             <button className="save-buttons">
               <FaUpload /> <span> Upload Result</span>
@@ -176,13 +181,13 @@ const StudentDetails = () => {
                     <div>
                       <h3>Class</h3>
                       <p className="class" style={{ textAlign: "left" }}>
-                        {student.class}
+                        {student.className}
                       </p>
                     </div>
                     <div style={{ marginTop: 30 }}>
                       <h3>Date of Birth</h3>
                       <p className="class" style={{ textAlign: "left" }}>
-                        {student.dateOfBirth}
+                        {formatDate(student.dateOfBirth)}
                       </p>
                     </div>
                     <div style={{ marginTop: 30 }}>
