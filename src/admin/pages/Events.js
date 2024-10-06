@@ -66,7 +66,6 @@ const EventsPage = () => {
         toast.error("Error adding event");
       }
     } catch (error) {
-      console.error("Error sending event to backend:", error);
       toast.error("Failed to add event.");
     }
 
@@ -90,7 +89,6 @@ const EventsPage = () => {
           toast.error("Error deleting event");
         }
       } catch (error) {
-        console.error("Error deleting event:", error);
         toast.error("Failed to delete event.");
       }
     }

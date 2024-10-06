@@ -101,7 +101,6 @@ const NewStudent = () => {
     } catch (error) {
       // Show error message if submission fails
       toast.error("Failed to add student. Please try again.");
-      console.error("There was an error uploading the data:", error);
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 import { IoIosArrowDown } from "react-icons/io";
 import studentData from "../../Api/Student";
@@ -33,13 +33,11 @@ const Students = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState(null);
 
   const fetchData = async () => {
     try {
       const userToken = await getUserToken();
       setToken(userToken);
-      // console.log(token);
     } catch (error) {
       console.error("Error retrieving token:", error);
     }
@@ -58,7 +56,6 @@ const Students = () => {
       setUserData(fetchedData);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setIsLoading(false);
     }
   };
@@ -82,7 +79,6 @@ const Students = () => {
         setFilteredStudents(data); // Set filtered students to initial data
         setIsLoading(false);
       } catch (error) {
-        setError("Failed to fetch students");
         setIsLoading(false);
       }
     };

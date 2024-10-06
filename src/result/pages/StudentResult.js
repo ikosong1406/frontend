@@ -18,7 +18,6 @@ const StudentResult = () => {
     grade: "",
   });
   const [results, setResults] = useState({ subjects: [] });
-  const [error, setError] = useState(null);
   const session = "2024/2025";
   const term = "First Term";
 
@@ -81,7 +80,7 @@ const StudentResult = () => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      setError("Failed to submit the result");
+      toast.error(response.data.message);
     }
   };
 

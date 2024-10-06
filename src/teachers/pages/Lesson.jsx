@@ -1,44 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Lesson.css";
 import { FaPlus } from "react-icons/fa6";
+import axios from "axios";
+import BackendApi from "../../Api/BackendApi";
+import { getUserToken } from "../../Api/storage";
 
 const Lesson = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      subject: "Math",
-      topic: "Introduction to Algebra",
-      date: "2024-09-13",
-      className: "Math 101",
-      attachment: "algebra-intro.pdf",
-      text: "This note covers the basic algebra principles and theorems...",
-      status: "Approved",
-    },
-    {
-      id: 2,
-      subject: "Science",
-      topic: "Introduction to Chemistry",
-      date: "2024-09-14",
-      className: "Science 201",
-      attachment: "chemistry-intro.pdf",
-      text: "This note introduces basic concepts of chemistry, including elements, compounds...",
-      status: "Pending",
-    },
-    {
-      id: 3,
-      subject: "English",
-      topic: "Grammar Rules",
-      date: "2024-09-15",
-      className: "English 301",
-      attachment: "grammar-rules.pdf",
-      text: "In this lesson, we discuss the rules of grammar, covering sentence structure, punctuation...",
-      status: "Approved",
-    },
-  ]);
+  const [notes, setNotes] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const userToken = await getUserToken();
+      setToken(userToken);
+    } catch (error) {
+      console.error("Error retrieving token:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const getData = async () => {
+    const data = { token };
+    try {
+      const response = await axios.post(`${BackendApi}/userdata`, data);
+      const fetchedData = response.data.data;
+
+      setUserData(fetchedData);
+      setNotes(fetchedData.lessonNote);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      const interval = setInterval(() => {
+        setRefreshing(true);
+        getData();
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [token]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -51,6 +67,11 @@ const Lesson = () => {
   const filteredNotes = notes.filter((note) =>
     note.topic.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toISOString().split("T")[0];
+  };
 
   return (
     <div className="lesson-page">
@@ -83,11 +104,11 @@ const Lesson = () => {
         </thead>
         <tbody>
           {filteredNotes.map((note) => (
-            <tr key={note.id} onClick={() => handleNoteClick(note)}>
+            <tr key={note._id} onClick={() => handleNoteClick(note)}>
               <td>{note.topic}</td>
               <td>{note.className}</td>
               <td>{note.subject}</td>
-              <td>{note.date}</td>
+              <td>{formatDate(note.date)}</td>
               <td
                 className={`status-cell ${
                   note.status === "Approved" ? "approved" : "pending"

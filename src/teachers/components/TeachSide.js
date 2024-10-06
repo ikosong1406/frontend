@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/TeachSide.css";
 import logo from "../../images/logo.jpg";
-import user from "../../images/usericon.jpeg";
 import { NavLink } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
@@ -23,7 +22,6 @@ const TeachSide = () => {
     try {
       const userToken = await getUserToken();
       setToken(userToken);
-      // console.log(token);
     } catch (error) {
       console.error("Error retrieving token:", error);
     }
@@ -42,7 +40,6 @@ const TeachSide = () => {
       setUserData(fetchedData);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setLoading(false);
     }
   };

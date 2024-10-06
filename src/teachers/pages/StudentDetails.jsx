@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { FaUpload } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 // Function to calculate age from DOB
@@ -34,13 +33,13 @@ const StudentDetails = () => {
   };
 
   const renderAcademicReport = (report) => {
-    return Object.keys(report).map((session) => (
+    return Object.keys(report || {}).map((session) => (
       <div key={session}>
         <h4>Session: {session}</h4>
-        {Object.keys(report[session]).map((term) => (
+        {Object.keys(report[session] || {}).map((term) => (
           <div key={term}>
             <h5>{term.charAt(0).toUpperCase() + term.slice(1)} Term</h5>
-            <p>Position: {report[session][term].position}</p>
+            <p>Position: {report[session][term].position || "N/A"}</p>
             <table>
               <thead>
                 <tr>
@@ -53,24 +52,29 @@ const StudentDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(report[session][term]).map((subject) => {
-                  if (subject !== "position") {
-                    const subjectData = report[session][term][subject];
+                {/* Safely check if subjects exist before iterating */}
+                {report[session][term]?.subjects &&
+                Object.keys(report[session][term].subjects).length > 0 ? (
+                  Object.keys(report[session][term].subjects).map((subject) => {
+                    const subjectData = report[session][term].subjects[subject];
                     return (
                       <tr key={subject}>
                         <td>
                           {subject.charAt(0).toUpperCase() + subject.slice(1)}
                         </td>
-                        <td>{subjectData.firstTest}</td>
-                        <td>{subjectData.secondTest}</td>
-                        <td>{subjectData.exam}</td>
-                        <td>{subjectData.total}</td>
-                        <td>{subjectData.grade}</td>
+                        <td>{subjectData.firstTest || "N/A"}</td>
+                        <td>{subjectData.secondTest || "N/A"}</td>
+                        <td>{subjectData.exam || "N/A"}</td>
+                        <td>{subjectData.total || "N/A"}</td>
+                        <td>{subjectData.grade || "N/A"}</td>
                       </tr>
                     );
-                  }
-                  return null;
-                })}
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="6">No subjects data available.</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -80,21 +84,25 @@ const StudentDetails = () => {
   };
 
   const renderFeesReport = (fees) => {
-    return Object.keys(fees).map((session) => (
+    return Object.keys(fees || {}).map((session) => (
       <div key={session}>
         <h4>Session: {session}</h4>
         <table>
           <thead>
             <tr>
               <th>Term</th>
-              <th>Payment Status</th>
+              <th>Fee Type</th>
+              <th>Amount Paid</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
-            {Object.keys(fees[session]).map((term) => (
-              <tr key={term}>
-                <td>{term.charAt(0).toUpperCase() + term.slice(1)}</td>
-                <td>{fees[session][term] === "paid" ? "Paid" : "Not Paid"}</td>
+            {fees[session].map((termObj, index) => (
+              <tr key={index}>
+                <td>{termObj.term}</td>
+                <td>{termObj.feeType}</td>
+                <td>{termObj.amount}</td>
+                <td>{new Date(termObj.date).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>
@@ -124,16 +132,6 @@ const StudentDetails = () => {
             >
               {student.firstname} {student.lastname}
             </h2>
-            <button
-              className="save-buttons"
-              onClick={() =>
-                navigate(`/resultUpload/studentResult`, {
-                  state: { student },
-                })
-              }
-            >
-              <FaUpload /> <span> Upload Result</span>
-            </button>
           </div>
         </div>
 
@@ -227,10 +225,13 @@ const StudentDetails = () => {
                     </div>
                   </div>
                 </div>
+                <div className="fees-report">
+                  {renderFeesReport(student.fees)}
+                </div>
               </div>
             ) : (
               <div className="academic-report">
-                {renderAcademicReport(student.result)}
+                {renderAcademicReport(student.results)}
               </div>
             )}
           </div>

@@ -1,5 +1,4 @@
-import { useState } from "react";
-import user from "../../images/usericon.jpeg";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IoGrid } from "react-icons/io5";
 import { FaUserGraduate } from "react-icons/fa";
@@ -8,9 +7,54 @@ import { RiCoinsFill } from "react-icons/ri";
 import { BsCalendarEventFill } from "react-icons/bs";
 import { FaAngleDoubleUp } from "react-icons/fa";
 import logo from "../../images/logo.jpg";
+import axios from "axios";
+import BackendApi from "../../Api/BackendApi";
+import { getUserToken } from "../../Api/storage";
 
 const AdminSide = () => {
   const [showNav, setShowNav] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const userToken = await getUserToken();
+      setToken(userToken);
+    } catch (error) {
+      console.error("Error retrieving token:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const getData = async () => {
+    const data = { token };
+    try {
+      const response = await axios.post(`${BackendApi}/userdata`, data);
+      const fetchedData = response.data.data;
+
+      setUserData(fetchedData);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      const interval = setInterval(() => {
+        setRefreshing(true);
+        getData();
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [token]);
 
   return (
     <div className="sideDiv1">
@@ -72,10 +116,10 @@ const AdminSide = () => {
           <h3 className="label">Promotion</h3>
         </NavLink>
       </div>
-      {/* <div className="sideDiv4" style={{ marginTop: 50 }}>
+      <NavLink className="sideDiv4">
         <img
-          src={user}
-          alt="user icon"
+          src={userData.profilePhoto}
+          alt=""
           style={{
             width: 35,
             height: 35,
@@ -84,10 +128,10 @@ const AdminSide = () => {
           }}
         />
         <div className="sideDiv41">
-          <h3>Alex</h3>
-          <h4>Admin</h4>
+          <h3>{userData.firstname}</h3>
+          <h4>{userData.role}</h4>
         </div>
-      </div> */}
+      </NavLink>
     </div>
   );
 };

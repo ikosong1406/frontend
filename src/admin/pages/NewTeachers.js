@@ -127,7 +127,6 @@ const NewTeachers = () => {
     } catch (error) {
       // Show error toast
       toast.error("Error creating staff");
-      console.error("Error:", error);
     }
   };
 

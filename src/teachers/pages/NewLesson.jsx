@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
+import "react-quill/dist/quill.snow.css";
+import axios from "axios";
+import BackendApi from "../../Api/BackendApi";
+import { getUserToken } from "../../Api/storage";
+import { toast, ToastContainer } from "react-toastify";
 import { jsPDF } from "jspdf";
 import "../styles/NewLesson.css";
 import {
@@ -19,63 +23,106 @@ const NewLesson = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const quillRef = useRef(null);
+  const [userData, setUserData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // State for the lesson note and category
+  const fetchData = async () => {
+    try {
+      const userToken = await getUserToken();
+      setToken(userToken);
+    } catch (error) {
+      console.error("Error retrieving token:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const getData = async () => {
+    const data = { token };
+    try {
+      const response = await axios.post(`${BackendApi}/userdata`, data);
+      const fetchedData = response.data.data;
+
+      setUserData(fetchedData);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      const interval = setInterval(() => {
+        setRefreshing(true);
+        getData();
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [token]);
+
+  // State for the lesson note
   const [note, setNote] = useState({
+    subject: "", // Subject input added
     topic: "",
     date: "",
     className: "",
     text: "",
-    categoryColor: "#ffffff",
+    status: "pending", // Assuming 'Draft' as the default status
+    attachment: "",
   });
-  const [categories, setCategories] = useState({
-    Math: "#ff6347",
-    Science: "#4682b4",
-    English: "#3cb371",
-  });
-  const [selectedCategory, setSelectedCategory] = useState("Math");
 
-  // State for the attached file
-  const [attachedFile, setAttachedFile] = useState(null);
+  const [attachedFile, setAttachedFile] = useState(null); // Attached file state
 
   useEffect(() => {
     if (id === "new") {
       setNote({
+        subject: location.state?.note?.subject || "",
         topic: location.state?.note?.topic || "",
         date: location.state?.note?.date || "",
         className: location.state?.note?.className || "",
         text: location.state?.note?.text || "",
-        categoryColor: "#ffffff",
+        status: "pending",
+        attachment: location.state?.note?.attachment || "",
       });
     } else {
       setNote(
         location.state?.note || {
+          subject: "",
           topic: "",
           date: "",
           className: "",
           text: "",
-          categoryColor: "#ffffff",
+          status: "pending",
+          attachment: "",
         }
       );
     }
   }, [id, location.state?.note]);
 
-  const handleSave = () => {
-    alert("Note saved!");
-    navigate("/");
-  };
+  const handleSave = async () => {
+    try {
+      const lessonNote = {
+        userId: userData._id, // assuming you pass userData to this component
+        subject: note.subject,
+        topic: note.topic,
+        date: note.date,
+        className: note.className,
+        text: note.text,
+        status: note.status,
+        attachment: attachedFile ? attachedFile.name : "",
+      };
 
-  const handlePrint = () => {
-    if (quillRef.current) {
-      const printWindow = window.open("", "", "height=600,width=800");
-      printWindow.document.write(
-        "<html><head><title>Print</title></head><body>"
-      );
-      printWindow.document.write(quillRef.current.getEditor().root.innerHTML);
-      printWindow.document.write("</body></html>");
-      printWindow.document.close();
-      printWindow.focus();
-      printWindow.print();
+      // Save the note to the backend
+      const response = await axios.post(`${BackendApi}/newLesson`, lessonNote);
+      toast.success("Lesson note saved successfully!");
+    } catch (error) {
+      toast.error("Error saving lesson note.");
     }
   };
 
@@ -83,7 +130,7 @@ const NewLesson = () => {
     const doc = new jsPDF();
     const content = quillRef.current.getEditor().root.innerText;
     doc.text(content, 10, 10);
-    // doc.save(${note.topic || "document"}.pdf);
+    doc.save(`${note.topic || "document"}.pdf`);
   };
 
   // Handle file attachment
@@ -96,27 +143,8 @@ const NewLesson = () => {
 
   return (
     <div className="edit-lesson-page">
+      <ToastContainer />
       <div className="toolbar">
-        <select
-          value={selectedCategory}
-          onChange={(e) => {
-            setSelectedCategory(e.target.value);
-            setNote((prev) => ({
-              ...prev,
-              categoryColor: categories[e.target.value],
-            }));
-          }}
-        >
-          {Object.keys(categories).map((category) => (
-            <option
-              key={category}
-              value={category}
-              style={{ backgroundColor: categories[category] }}
-            >
-              {category}
-            </option>
-          ))}
-        </select>
         <button
           onClick={() => quillRef.current.getEditor().format("bold", true)}
         >
@@ -154,21 +182,22 @@ const NewLesson = () => {
         >
           <FaAlignJustify />
         </button>
-
-        <button onClick={handlePrint}>Print</button>
         <button onClick={handleExportPDF}>Export as PDF</button>
         <button onClick={handleSave}>Save</button>
-
-        {/* File Attachment */}
         <input
           type="file"
-          // value={note.attachment}
           onChange={handleFileUpload}
           style={{ marginLeft: "10px" }}
         />
       </div>
 
       <div className="header">
+        <input
+          type="text"
+          placeholder="Subject"
+          value={note.subject}
+          onChange={(e) => setNote({ ...note, subject: e.target.value })}
+        />
         <input
           type="text"
           placeholder="Topic"
@@ -178,7 +207,6 @@ const NewLesson = () => {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <input
             type="date"
-            placeholder="Date"
             value={note.date}
             onChange={(e) => setNote({ ...note, date: e.target.value })}
             style={{ width: "40%" }}
@@ -196,10 +224,7 @@ const NewLesson = () => {
       <ReactQuill
         ref={quillRef}
         value={note.text}
-        onChange={(content) => setNote({ ...note, content })}
-        modules={{
-          toolbar: false, // Disable Quill's default toolbar
-        }}
+        onChange={(content) => setNote({ ...note, text: content })}
         className="ql-container"
       />
     </div>

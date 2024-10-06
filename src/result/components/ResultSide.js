@@ -1,9 +1,6 @@
-import { useState } from "react";
 import logo from "../../images/logo.jpg";
 
 const ResultSide = () => {
-  const [showNav, setShowNav] = useState(false);
-
   return (
     <div className="sideDiv1">
       <div className="sideDiv2">
