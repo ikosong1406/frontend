@@ -31,9 +31,7 @@ const StudentResult = () => {
           term,
         });
         setResults(response.data);
-      } catch (err) {
-        setError("Failed to fetch student's results");
-      }
+      } catch (err) {}
     };
 
     fetchStoredResult();
@@ -79,9 +77,7 @@ const StudentResult = () => {
       } else {
         toast.error(response.data.message);
       }
-    } catch (error) {
-      toast.error(response.data.message);
-    }
+    } catch (error) {}
   };
 
   return (
