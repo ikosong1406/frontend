@@ -44,7 +44,7 @@ const TeacherDetails = () => {
           <strong>Date:</strong> {note.date}
         </p>
         <p>
-          <strong>Class:</strong> {note.class}
+          <strong>Class:</strong> {note.className}
         </p>
         <p>{note.text}</p>
         <a href={note.attachment} target="_blank" rel="noopener noreferrer">
